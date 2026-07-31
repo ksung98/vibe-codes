@@ -13,63 +13,62 @@ const resetButton = document.getElementById('resetButton');
 const outfitMessage = document.getElementById('outfitMessage');
 
 let selectedAnimal = 'capybara';
-const outfit = {
-  hat: 'none',
-  top: 'none',
-  bottom: 'none',
-  accessory: 'none',
-  shoes: 'none'
-};
+const outfit = { hat: 'none', top: 'none', bottom: 'none', accessory: 'none', shoes: 'none' };
 
 const labels = {
-  sun: 'a sun hat',
-  party: 'a party hat',
-  shirt: 'a T-shirt',
-  scarf: 'a scarf',
-  shorts: 'shorts',
-  purse: 'a purse',
-  sneakers: 'sneakers'
+  sun: 'a sun hat', party: 'a party hat', shirt: 'a T-shirt', scarf: 'a scarf',
+  shorts: 'shorts', purse: 'a purse', sneakers: 'sneakers'
 };
 
-function setVisible(element, visible) {
+function showSvg(element) {
   if (!element) return;
-  element.classList.toggle('hidden', !visible);
-  element.style.display = visible ? 'inline' : 'none';
+  element.classList.remove('hidden');
+  element.removeAttribute('display');
+  element.removeAttribute('visibility');
+  element.style.removeProperty('display');
+  element.style.removeProperty('visibility');
+}
+
+function hideSvg(element) {
+  if (!element) return;
+  element.classList.add('hidden');
+  element.setAttribute('display', 'none');
+  element.setAttribute('visibility', 'hidden');
 }
 
 function render() {
   Object.entries(animalGroups).forEach(([name, group]) => {
-    setVisible(group, name === selectedAnimal);
+    if (name === selectedAnimal) showSvg(group);
+    else hideSvg(group);
   });
 
   Object.entries(wearableSets).forEach(([name, set]) => {
     const selected = name === selectedAnimal;
-    setVisible(set, selected);
+    if (selected) showSvg(set);
+    else hideSvg(set);
 
     if (!set) return;
     set.querySelectorAll('.wearable').forEach(wearable => {
-      const category = wearable.dataset.category;
-      const item = wearable.dataset.item;
-      setVisible(wearable, selected && outfit[category] === item);
+      const shouldShow = selected && outfit[wearable.dataset.category] === wearable.dataset.item;
+      if (shouldShow) showSvg(wearable);
+      else hideSvg(wearable);
     });
   });
 
   animalButtons.forEach(button => {
-    button.classList.toggle('active', button.dataset.animal === selectedAnimal);
-    button.setAttribute('aria-pressed', button.dataset.animal === selectedAnimal ? 'true' : 'false');
+    const active = button.dataset.animal === selectedAnimal;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
   });
 
   itemButtons.forEach(button => {
     const active = outfit[button.dataset.category] === button.dataset.item;
     button.classList.toggle('active', active);
-    button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    button.setAttribute('aria-pressed', String(active));
   });
 
-  const chosen = Object.values(outfit)
-    .filter(item => item !== 'none')
-    .map(item => labels[item] || item);
+  const chosen = Object.values(outfit).filter(item => item !== 'none').map(item => labels[item] || item);
   const animalName = selectedAnimal[0].toUpperCase() + selectedAnimal.slice(1);
-
   outfitMessage.textContent = chosen.length
     ? `${animalName} is wearing ${chosen.join(', ')}!`
     : `Your ${selectedAnimal} is ready to dress up!`;
@@ -97,7 +96,6 @@ randomButton.addEventListener('click', () => {
     accessory: ['none', 'purse'],
     shoes: ['none', 'sneakers']
   };
-
   selectedAnimal = Math.random() < 0.5 ? 'capybara' : 'panda';
   Object.keys(outfit).forEach(category => {
     const choices = options[category];
@@ -107,9 +105,7 @@ randomButton.addEventListener('click', () => {
 });
 
 resetButton.addEventListener('click', () => {
-  Object.keys(outfit).forEach(category => {
-    outfit[category] = 'none';
-  });
+  Object.keys(outfit).forEach(category => { outfit[category] = 'none'; });
   render();
 });
 
