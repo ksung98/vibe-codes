@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Butterfly Breath</title>
+  <style>
+    :root { --bg:#f8f3ee; --card:#fff; --text:#2f2a24; --muted:#71695f; --accent:#8f79b8; --accent-dark:#66508f; --green:#5f8f74; --border:#e7dfd7; --shadow:0 14px 32px rgba(47,42,36,.14); }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; font-family:Arial,Helvetica,sans-serif; background:linear-gradient(160deg,var(--bg) 0%,#eee8f8 100%); color:var(--text); display:flex; align-items:center; justify-content:center; padding:18px; }
+    .app { width:100%; max-width:440px; background:var(--card); border:1px solid var(--border); border-radius:26px; box-shadow:var(--shadow); padding:22px; text-align:center; }
+    h1 { margin:0 0 8px; font-size:1.65rem; letter-spacing:-.02em; }
+    .intro { margin:0 auto 18px; color:var(--muted); font-size:.96rem; line-height:1.45; max-width:340px; }
+    .breath-card { border:1px solid var(--border); border-radius:24px; background:#fffdfb; padding:18px 12px 16px; margin-bottom:16px; }
+    .prompt { min-height:42px; display:flex; align-items:center; justify-content:center; font-size:1.45rem; font-weight:800; color:var(--accent-dark); margin-bottom:8px; }
+    .subprompt { min-height:24px; color:var(--muted); font-size:.92rem; margin-bottom:8px; }
+    .butterfly-wrap { width:100%; display:flex; justify-content:center; margin:4px 0 8px; }
+    svg { width:320px; max-width:100%; height:auto; overflow:visible; }
+    .wing-fill { fill:#9b89bd; opacity:.96; }
+    .wing-fill-dark { fill:#8b78b1; opacity:.96; }
+    .body { fill:#7d6a9f; }
+    .antenna { fill:none; stroke:#7d6a9f; stroke-width:4; stroke-linecap:round; }
+    .guide { fill:none; stroke:#222; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:6 8; opacity:1; }
+    .arrow { fill:#222; opacity:1; }
+    .trace-dot { fill:var(--green); filter:drop-shadow(0 4px 8px rgba(95,143,116,.35)); opacity:0; }
+    .progress-text { color:var(--muted); font-size:.9rem; margin-top:4px; }
+    .buttons { display:flex; gap:10px; }
+    button { border:0; border-radius:16px; padding:13px 14px; cursor:pointer; font-weight:800; font-size:.95rem; transition:transform 120ms ease, background 120ms ease, opacity 120ms ease; }
+    button:active { transform:scale(.98); }
+    .secondary { background:#eee8df; color:var(--text); flex:1; }
+    .primary { background:var(--accent); color:white; flex:2; }
+    .primary:hover { background:var(--accent-dark); }
+    .primary.stop { background:#9b6a70; }
+    .primary.stop:hover { background:#81545a; }
+    .note { margin:14px 4px 0; color:var(--muted); font-size:.84rem; line-height:1.4; }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <h1>Butterfly Breath</h1>
+    <p class="intro">Start in the middle. Breathe in while tracing one side of the butterfly, then breathe out while tracing the other side.</p>
+    <section class="breath-card" aria-live="polite">
+      <div class="prompt" id="prompt">Ready?</div>
+      <div class="subprompt" id="subprompt">Press start and follow the green dot.</div>
+      <div class="butterfly-wrap">
+        <svg viewBox="0 0 320 280" role="img" aria-label="Purple butterfly breathing guide">
+          <path class="wing-fill" d="M156 134 C140 106,116 86,92 82 C66 78,52 98,56 126 C60 156,82 174,114 176 C136 178,150 164,156 146 C158 140,158 136,156 134 Z" />
+          <path class="wing-fill" d="M164 134 C180 106,204 86,228 82 C254 78,268 98,264 126 C260 156,238 174,206 176 C184 178,170 164,164 146 C162 140,162 136,164 134 Z" />
+          <path class="wing-fill-dark" d="M156 148 C138 160,120 182,112 204 C102 230,112 248,132 250 C148 252,158 238,160 214 C161 190,160 166,156 148 Z" />
+          <path class="wing-fill-dark" d="M164 148 C182 160,200 182,208 204 C218 230,208 248,188 250 C172 252,162 238,160 214 C159 190,160 166,164 148 Z" />
+          <ellipse class="body" cx="160" cy="150" rx="10" ry="42" />
+          <circle class="body" cx="160" cy="102" r="10" />
+          <path class="antenna" d="M154 94 C144 76 134 68 124 66" />
+          <path class="antenna" d="M166 94 C176 76 186 68 196 66" />
+          <path id="leftTrace" class="guide" d="M160 140 C145 118,128 86,110 62 C92 38,62 28,40 44 C18 60,16 106,28 146 C40 188,60 226,92 246 C122 264,150 248,156 214 C160 190,160 162,160 140" />
+          <path id="rightTrace" class="guide" d="M160 140 C175 118,192 86,210 62 C228 38,258 28,280 44 C302 60,304 106,292 146 C280 188,260 226,228 246 C198 264,170 248,164 214 C160 190,160 162,160 140" />
+          <polygon class="arrow" points="0,-7 13,0 0,7" transform="translate(116 62) rotate(-126)" />
+          <polygon class="arrow" points="0,-7 13,0 0,7" transform="translate(30 151) rotate(82)" />
+          <polygon class="arrow" points="0,-7 13,0 0,7" transform="translate(105 252) rotate(21)" />
+          <polygon class="arrow" points="0,-7 13,0 0,7" transform="translate(160 146) rotate(-90)" />
+          <polygon class="arrow" points="0,-7 13,0 0,7" transform="translate(204 62) rotate(-54)" />
+          <polygon class="arrow" points="0,-7 13,0 0,7" transform="translate(290 151) rotate(98)" />
+          <polygon class="arrow" points="0,-7 13,0 0,7" transform="translate(215 252) rotate(159)" />
+          <polygon class="arrow" points="0,-7 13,0 0,7" transform="translate(160 146) rotate(-90)" />
+          <circle id="traceDot" class="trace-dot" r="8" cx="160" cy="140" />
+        </svg>
+      </div>
+      <div class="progress-text" id="progressText">Breath 0</div>
+    </section>
+    <div class="buttons"><button class="secondary" id="resetBtn">Reset</button><button class="primary" id="startStopBtn">Start</button></div>
+    <p class="note">Tip: Kids can follow with their eyes, mouse, or finger on the screen. Press Stop whenever they are finished.</p>
+  </main>
+  <script>
+    const leftTrace = document.getElementById('leftTrace');
+    const rightTrace = document.getElementById('rightTrace');
+    const traceDot = document.getElementById('traceDot');
+    const prompt = document.getElementById('prompt');
+    const subprompt = document.getElementById('subprompt');
+    const progressText = document.getElementById('progressText');
+    const startStopBtn = document.getElementById('startStopBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const SPEED_PX_PER_SEC = 110;
+    const pauseMs = 400;
+    let running = false;
+    let timeoutId = null;
+    let animationFrameId = null;
+    let breathCount = 0;
+    function moveDotToPath(pathEl, progress) { const length = pathEl.getTotalLength(); const point = pathEl.getPointAtLength(length * progress); traceDot.setAttribute('cx', point.x); traceDot.setAttribute('cy', point.y); }
+    function getDurationFromPath(pathEl) { return (pathEl.getTotalLength() / SPEED_PX_PER_SEC) * 1000; }
+    function animateAlongPath(pathEl) { return new Promise(resolve => { const duration = getDurationFromPath(pathEl); const start = performance.now(); function frame(now) { if (!running) { resolve(); return; } const progress = Math.min((now - start) / duration, 1); moveDotToPath(pathEl, progress); if (progress < 1) animationFrameId = requestAnimationFrame(frame); else resolve(); } animationFrameId = requestAnimationFrame(frame); }); }
+    function wait(ms) { return new Promise(resolve => { timeoutId = setTimeout(resolve, ms); }); }
+    function setButtonToStart() { startStopBtn.textContent = 'Start'; startStopBtn.classList.remove('stop'); startStopBtn.disabled = false; }
+    function setButtonToStop() { startStopBtn.textContent = 'Stop'; startStopBtn.classList.add('stop'); startStopBtn.disabled = false; }
+    function resetVisuals() { running = false; clearTimeout(timeoutId); cancelAnimationFrame(animationFrameId); breathCount = 0; traceDot.style.opacity = '0'; traceDot.setAttribute('cx', 160); traceDot.setAttribute('cy', 140); prompt.textContent = 'Ready?'; subprompt.textContent = 'Press start and follow the green dot.'; progressText.textContent = 'Breath 0'; setButtonToStart(); }
+    async function beginBreathing() { if (running) return; running = true; setButtonToStop(); traceDot.style.opacity = '1'; while (running) { breathCount += 1; progressText.textContent = `Breath ${breathCount}`; prompt.textContent = 'Breathe in'; subprompt.textContent = 'Start in the middle and trace the left side.'; traceDot.setAttribute('cx', 160); traceDot.setAttribute('cy', 140); await animateAlongPath(leftTrace); if (!running) break; await wait(pauseMs); if (!running) break; prompt.textContent = 'Breathe out'; subprompt.textContent = 'Cross through the middle and trace the right side.'; traceDot.setAttribute('cx', 160); traceDot.setAttribute('cy', 140); await animateAlongPath(rightTrace); if (!running) break; await wait(pauseMs); } prompt.textContent = 'Paused'; subprompt.textContent = 'Press start when you are ready to continue.'; traceDot.style.opacity = '0'; setButtonToStart(); }
+    function stopBreathing() { running = false; clearTimeout(timeoutId); cancelAnimationFrame(animationFrameId); }
+    startStopBtn.addEventListener('click', () => { if (running) stopBreathing(); else beginBreathing(); });
+    resetBtn.addEventListener('click', resetVisuals);
+    resetVisuals();
+  </script>
+</body>
+</html>
