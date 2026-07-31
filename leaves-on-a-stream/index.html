@@ -5,82 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Leaves on a Stream</title>
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      color: #173b2f;
-      background: linear-gradient(180deg, #d8f3dc 0%, #b7e4c7 35%, #74c69d 100%);
-      overflow: hidden;
-    }
-    .app { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 32px 20px; text-align: center; }
-    .card { background: rgba(255, 255, 255, 0.86); border-radius: 24px; padding: 28px; box-shadow: 0 18px 40px rgba(23, 59, 47, 0.18); backdrop-filter: blur(8px); }
-    h1 { margin: 0 0 10px; font-size: clamp(2rem, 5vw, 3.2rem); color: #1b4332; }
-    p { font-size: 1.05rem; line-height: 1.6; margin: 10px 0; }
-    .prompt { margin-top: 20px; display: grid; gap: 12px; }
-    textarea { width: 100%; min-height: 90px; resize: vertical; border: 2px solid #95d5b2; border-radius: 18px; padding: 16px; font-size: 1rem; font-family: inherit; color: #173b2f; background: #f7fff9; outline: none; }
-    textarea:focus { border-color: #40916c; box-shadow: 0 0 0 4px rgba(64, 145, 108, 0.18); }
-    button { border: none; border-radius: 999px; padding: 14px 22px; font-size: 1rem; font-weight: 700; color: white; background: #2d6a4f; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
-    button:hover { background: #1b4332; transform: translateY(-1px); }
-    button:active { transform: translateY(1px); }
-    .helper { font-size: 0.95rem; color: #315c49; }
-    .stream { position: fixed; inset: 0; z-index: 1; overflow: hidden; background: radial-gradient(circle at 20% 70%, rgba(255,255,255,0.22), transparent 24%), radial-gradient(circle at 80% 75%, rgba(255,255,255,0.18), transparent 28%), linear-gradient(180deg, transparent 0 42%, rgba(82, 182, 154, 0.35) 43%, rgba(22, 138, 173, 0.55) 100%); }
-    .wave { position: absolute; left: -10%; width: 120%; height: 120px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); animation: waveMove 10s ease-in-out infinite alternate; }
-    .wave.one { bottom: 130px; }
-    .wave.two { bottom: 70px; animation-duration: 13s; opacity: 0.8; }
-    .wave.three { bottom: 10px; animation-duration: 16s; opacity: 0.65; }
-    @keyframes waveMove { from { transform: translateX(-30px) scaleY(0.85); } to { transform: translateX(30px) scaleY(1.1); } }
-    .leaf { position: fixed; z-index: 3; min-width: 120px; max-width: 220px; min-height: 64px; padding: 18px 22px; background: #52b788; color: #073b2a; border-radius: 80% 0 80% 0; box-shadow: 0 10px 24px rgba(0,0,0,0.18); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.92rem; line-height: 1.25; word-break: break-word; transform-origin: center; animation: floatAway 20s linear forwards; }
-    .leaf::before { content: ""; position: absolute; width: 2px; height: 110%; background: rgba(7, 59, 42, 0.22); transform: rotate(45deg); }
-    .leaf span { position: relative; z-index: 1; background: rgba(255,255,255,0.28); padding: 4px 7px; border-radius: 10px; animation: textRelease 20s ease-in forwards; }
-    @keyframes textRelease { 0%,38% { opacity: 1; transform: scale(1); } 65% { opacity: 0.35; transform: scale(0.96); } 100% { opacity: 0; transform: scale(0.92); } }
-    .watch-overlay { position: fixed; inset: 0; z-index: 6; display: flex; align-items: center; justify-content: center; padding: 24px; background: linear-gradient(180deg, rgba(216,243,220,0.82), rgba(22,138,173,0.38)); transition: opacity 0.8s ease, visibility 0.8s ease; }
-    .watch-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .watch-card { max-width: 560px; padding: 28px; border-radius: 24px; text-align: center; background: rgba(255,255,255,0.88); box-shadow: 0 18px 40px rgba(23,59,47,0.18); backdrop-filter: blur(8px); }
-    .watch-card h2 { margin: 0 0 10px; color: #1b4332; font-size: clamp(1.6rem, 4vw, 2.4rem); }
-    @keyframes floatAway { 0% { left: -260px; opacity: 0; transform: translateY(0) rotate(-18deg) scale(0.9); } 10% { opacity: 1; } 45% { transform: translateY(-28px) rotate(10deg) scale(1); } 75% { opacity: 1; transform: translateY(24px) rotate(-8deg) scale(0.96); } 100% { left: calc(100vw + 280px); opacity: 0; transform: translateY(-8px) rotate(16deg) scale(0.9); } }
-    .ground { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 4; width: min(92vw,720px); color: rgba(255,255,255,0.95); text-align: center; font-size: 0.95rem; text-shadow: 0 1px 4px rgba(0,0,0,0.25); }
-    @media (max-width: 600px) { .app { padding: 18px 14px; } .card { padding: 22px 18px; } .leaf { max-width: 180px; } }
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Arial,sans-serif;color:#173b2f;background:linear-gradient(180deg,#d8f3dc 0%,#b7e4c7 35%,#74c69d 100%);overflow:hidden}.home-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.92);color:#173b2f;text-decoration:none;font-weight:800;box-shadow:0 8px 20px rgba(23,59,47,.18);border:1px solid rgba(23,59,47,.12)}.app{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:72px 20px 32px;text-align:center}.card{background:rgba(255,255,255,.86);border-radius:24px;padding:28px;box-shadow:0 18px 40px rgba(23,59,47,.18);backdrop-filter:blur(8px)}h1{margin:0 0 10px;font-size:clamp(2rem,5vw,3.2rem);color:#1b4332}p{font-size:1.05rem;line-height:1.6;margin:10px 0}.prompt{margin-top:20px;display:grid;gap:12px}textarea{width:100%;min-height:90px;resize:vertical;border:2px solid #95d5b2;border-radius:18px;padding:16px;font-size:1rem;font-family:inherit;color:#173b2f;background:#f7fff9;outline:none}textarea:focus{border-color:#40916c;box-shadow:0 0 0 4px rgba(64,145,108,.18)}button{border:none;border-radius:999px;padding:14px 22px;font-size:1rem;font-weight:700;color:white;background:#2d6a4f;cursor:pointer;transition:transform .2s ease,background .2s ease}button:hover{background:#1b4332;transform:translateY(-1px)}.helper{font-size:.95rem;color:#315c49}.stream{position:fixed;inset:0;z-index:1;overflow:hidden;background:radial-gradient(circle at 20% 70%,rgba(255,255,255,.22),transparent 24%),radial-gradient(circle at 80% 75%,rgba(255,255,255,.18),transparent 28%),linear-gradient(180deg,transparent 0 42%,rgba(82,182,154,.35) 43%,rgba(22,138,173,.55) 100%)}.wave{position:absolute;left:-10%;width:120%;height:120px;border-radius:50%;background:rgba(255,255,255,.16);animation:waveMove 10s ease-in-out infinite alternate}.wave.one{bottom:130px}.wave.two{bottom:70px;animation-duration:13s;opacity:.8}.wave.three{bottom:10px;animation-duration:16s;opacity:.65}@keyframes waveMove{from{transform:translateX(-30px) scaleY(.85)}to{transform:translateX(30px) scaleY(1.1)}}.leaf{position:fixed;z-index:3;min-width:120px;max-width:220px;min-height:64px;padding:18px 22px;background:#52b788;color:#073b2a;border-radius:80% 0 80% 0;box-shadow:0 10px 24px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;text-align:center;font-size:.92rem;line-height:1.25;word-break:break-word;transform-origin:center;animation:floatAway 20s linear forwards}.leaf:before{content:"";position:absolute;width:2px;height:110%;background:rgba(7,59,42,.22);transform:rotate(45deg)}.leaf span{position:relative;z-index:1;background:rgba(255,255,255,.28);padding:4px 7px;border-radius:10px;animation:textRelease 20s ease-in forwards}@keyframes textRelease{0%,38%{opacity:1;transform:scale(1)}65%{opacity:.35;transform:scale(.96)}100%{opacity:0;transform:scale(.92)}}.watch-overlay{position:fixed;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(180deg,rgba(216,243,220,.82),rgba(22,138,173,.38));transition:opacity .8s ease,visibility .8s ease}.watch-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}.watch-card{max-width:560px;padding:28px;border-radius:24px;text-align:center;background:rgba(255,255,255,.88);box-shadow:0 18px 40px rgba(23,59,47,.18);backdrop-filter:blur(8px)}.watch-card h2{margin:0 0 10px;color:#1b4332;font-size:clamp(1.6rem,4vw,2.4rem)}@keyframes floatAway{0%{left:-260px;opacity:0;transform:translateY(0) rotate(-18deg) scale(.9)}10%{opacity:1}45%{transform:translateY(-28px) rotate(10deg) scale(1)}75%{opacity:1;transform:translateY(24px) rotate(-8deg) scale(.96)}100%{left:calc(100vw + 280px);opacity:0;transform:translateY(-8px) rotate(16deg) scale(.9)}}.ground{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:4;width:min(92vw,720px);color:rgba(255,255,255,.95);text-align:center;font-size:.95rem;text-shadow:0 1px 4px rgba(0,0,0,.25)}@media(max-width:600px){.app{padding:72px 14px 18px}.card{padding:22px 18px}.leaf{max-width:180px}.home-link{top:10px;left:10px;padding:8px 11px;font-size:.84rem}}
   </style>
 </head>
 <body>
-  <main class="app">
-    <section class="card" aria-labelledby="title">
-      <h1 id="title">Leaves on a Stream</h1>
-      <p>Notice a thought, worry, or feeling. Place it on a leaf. Let the stream carry it away.</p>
-      <p class="helper">You do not need to argue with the thought or make it disappear. Just observe it passing by.</p>
-      <div class="prompt">
-        <label for="thought" class="helper">Write one thought you are ready to practice letting pass:</label>
-        <textarea id="thought" placeholder="Example: I am worried about tomorrow..."></textarea>
-        <button id="releaseButton">Place it on a leaf</button>
-      </div>
-    </section>
-  </main>
+  <a class="home-link" href="../" aria-label="Back to home page">← Home</a>
+  <main class="app"><section class="card" aria-labelledby="title"><h1 id="title">Leaves on a Stream</h1><p>Notice a thought, worry, or feeling. Place it on a leaf. Let the stream carry it away.</p><p class="helper">You do not need to argue with the thought or make it disappear. Just observe it passing by.</p><div class="prompt"><label for="thought" class="helper">Write one thought you are ready to practice letting pass:</label><textarea id="thought" placeholder="Example: I am worried about tomorrow..."></textarea><button id="releaseButton">Place it on a leaf</button></div></section></main>
   <div class="stream" aria-hidden="true"><div class="wave one"></div><div class="wave two"></div><div class="wave three"></div></div>
   <div class="watch-overlay" id="watchOverlay"><div class="watch-card"><h2>Begin by watching the stream</h2><p>Take a few slow breaths. Watch the blank leaves pass by before placing anything on them.</p><button id="beginButton">I’m ready to add a thought</button></div></div>
   <div class="ground">Breathe in. Notice. Breathe out. Let it float by.</div>
   <script>
-    const thoughtInput = document.getElementById('thought');
-    const releaseButton = document.getElementById('releaseButton');
-    const watchOverlay = document.getElementById('watchOverlay');
-    const beginButton = document.getElementById('beginButton');
-    function randomBetween(min, max) { return Math.random() * (max - min) + min; }
-    function createLeaf(text) {
-      const leaf = document.createElement('div');
-      leaf.className = 'leaf';
-      leaf.style.top = `${randomBetween(window.innerHeight * 0.58, window.innerHeight * 0.84)}px`;
-      leaf.style.animationDuration = '20s';
-      leaf.style.background = ['#52b788', '#74c69d', '#95d5b2', '#80b918'][Math.floor(Math.random() * 4)];
-      if (text) { const span = document.createElement('span'); span.textContent = text; span.style.animationDuration = leaf.style.animationDuration; leaf.appendChild(span); }
-      document.body.appendChild(leaf);
-      leaf.addEventListener('animationend', () => leaf.remove());
-    }
-    function releaseThought() { const text = thoughtInput.value.trim(); createLeaf(text); thoughtInput.value = ''; thoughtInput.focus(); }
-    beginButton.addEventListener('click', () => { watchOverlay.classList.add('hidden'); thoughtInput.focus(); });
-    releaseButton.addEventListener('click', releaseThought);
-    thoughtInput.addEventListener('keydown', (event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); releaseThought(); } });
-    setInterval(() => { if (document.hidden) return; createLeaf(); }, 9000);
+    const thoughtInput=document.getElementById('thought'),releaseButton=document.getElementById('releaseButton'),watchOverlay=document.getElementById('watchOverlay'),beginButton=document.getElementById('beginButton');function randomBetween(min,max){return Math.random()*(max-min)+min}function createLeaf(text){const leaf=document.createElement('div');leaf.className='leaf';leaf.style.top=`${randomBetween(window.innerHeight*.58,window.innerHeight*.84)}px`;leaf.style.animationDuration='20s';leaf.style.background=['#52b788','#74c69d','#95d5b2','#80b918'][Math.floor(Math.random()*4)];if(text){const span=document.createElement('span');span.textContent=text;span.style.animationDuration=leaf.style.animationDuration;leaf.appendChild(span)}document.body.appendChild(leaf);leaf.addEventListener('animationend',()=>leaf.remove())}function releaseThought(){const text=thoughtInput.value.trim();createLeaf(text);thoughtInput.value='';thoughtInput.focus()}beginButton.addEventListener('click',()=>{watchOverlay.classList.add('hidden');thoughtInput.focus()});releaseButton.addEventListener('click',releaseThought);thoughtInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();releaseThought()}});setInterval(()=>{if(document.hidden)return;createLeaf()},9000);
   </script>
 </body>
 </html>
