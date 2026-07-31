@@ -1,16 +1,17 @@
 const canvas = document.getElementById("drawingCanvas");
 const ctx = canvas.getContext("2d");
 
-const pageSelect = document.getElementById("pageSelect");
 const colorPicker = document.getElementById("colorPicker");
 const brushSize = document.getElementById("brushSize");
 const brushSizeLabel = document.getElementById("brushSizeLabel");
+const stampSize = document.getElementById("stampSize");
+const stampSizeLabel = document.getElementById("stampSizeLabel");
 const brushButton = document.getElementById("brushButton");
 const eraserButton = document.getElementById("eraserButton");
+const stampButtons = [...document.querySelectorAll(".stamp-button")];
 const undoButton = document.getElementById("undoButton");
 const clearButton = document.getElementById("clearButton");
 const saveButton = document.getElementById("saveButton");
-const canvasTitle = document.getElementById("canvasTitle");
 const canvasHelp = document.getElementById("canvasHelp");
 const modePill = document.getElementById("modePill");
 const promptText = document.getElementById("promptText");
@@ -21,25 +22,17 @@ const CANVAS_HEIGHT = canvas.height;
 
 let drawing = false;
 let mode = "brush";
+let selectedShape = null;
 let lastPoint = null;
 let undoStack = [];
-
-const pageTitles = {
-  blank: "Blank drawing page",
-  flower: "Flower garden coloring page",
-  butterfly: "Butterfly coloring page",
-  mandala: "Simple mandala coloring page",
-  ocean: "Ocean scene coloring page",
-  house: "Cozy house coloring page"
-};
 
 const prompts = [
   "Try drawing one slow line while taking one slow breath.",
   "Choose a color that matches how you feel right now.",
-  "Fill one small space at a time. There is no rush.",
+  "Stamp a repeating pattern across the page.",
   "Draw a shape, pattern, or color that feels calming.",
   "Let your hand move gently across the page.",
-  "Try coloring only the edges first, then the middle."
+  "Try combining two shapes into something new."
 ];
 
 function setWhiteBackground() {
@@ -57,287 +50,66 @@ function saveState() {
 
 function restoreLastState() {
   if (undoStack.length === 0) return;
-  const imageData = undoStack.pop();
-  ctx.putImageData(imageData, 0, 0);
+  ctx.putImageData(undoStack.pop(), 0, 0);
 }
 
 function clearCanvas(saveFirst = true) {
   if (saveFirst) saveState();
   setWhiteBackground();
-  drawSelectedTemplate();
 }
 
-function drawLineArtSetup() {
-  ctx.save();
-  ctx.globalCompositeOperation = "source-over";
-  ctx.strokeStyle = "#222222";
-  ctx.lineWidth = 7;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.fillStyle = "transparent";
-}
-
-function finishLineArt() {
-  ctx.restore();
-}
-
-function drawPetal(cx, cy, rx, ry, rotation) {
-  ctx.save();
-  ctx.translate(cx, cy);
-  ctx.rotate(rotation);
-  ctx.beginPath();
-  ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.restore();
-}
-
-function drawFlowerGarden() {
-  drawLineArtSetup();
-  ctx.lineWidth = 6;
-
-  for (let i = 0; i < 4; i += 1) {
-    const cx = 230 + i * 230;
-    const cy = 365 + (i % 2) * 35;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy + 80);
-    ctx.quadraticCurveTo(cx - 22, cy + 20, cx, cy - 30);
-    ctx.stroke();
-
-    for (let p = 0; p < 8; p += 1) {
-      drawPetal(cx, cy - 70, 34, 72, (Math.PI * 2 * p) / 8);
-    }
-
-    ctx.beginPath();
-    ctx.arc(cx, cy - 70, 34, 0, Math.PI * 2);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.ellipse(cx - 38, cy + 8, 36, 16, -0.5, 0, Math.PI * 2);
-    ctx.ellipse(cx + 38, cy + 18, 36, 16, 0.5, 0, Math.PI * 2);
-    ctx.stroke();
-  }
-
-  ctx.beginPath();
-  ctx.moveTo(60, 610);
-  ctx.bezierCurveTo(260, 560, 420, 660, 620, 610);
-  ctx.bezierCurveTo(830, 555, 990, 650, 1140, 600);
-  ctx.stroke();
-
-  finishLineArt();
-}
-
-function drawButterfly() {
-  drawLineArtSetup();
-  ctx.lineWidth = 8;
-
-  ctx.beginPath();
-  ctx.ellipse(600, 360, 34, 145, 0, 0, Math.PI * 2);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.arc(600, 205, 34, 0, Math.PI * 2);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(582, 180);
-  ctx.quadraticCurveTo(520, 120, 465, 135);
-  ctx.moveTo(618, 180);
-  ctx.quadraticCurveTo(680, 120, 735, 135);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(570, 290);
-  ctx.bezierCurveTo(420, 120, 170, 160, 210, 365);
-  ctx.bezierCurveTo(235, 500, 440, 500, 575, 380);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(630, 290);
-  ctx.bezierCurveTo(780, 120, 1030, 160, 990, 365);
-  ctx.bezierCurveTo(965, 500, 760, 500, 625, 380);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(575, 405);
-  ctx.bezierCurveTo(470, 500, 450, 675, 590, 640);
-  ctx.bezierCurveTo(640, 610, 630, 480, 610, 410);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(625, 405);
-  ctx.bezierCurveTo(730, 500, 750, 675, 610, 640);
-  ctx.bezierCurveTo(560, 610, 570, 480, 590, 410);
-  ctx.stroke();
-
-  ctx.lineWidth = 5;
-  [350, 850].forEach((x) => {
-    ctx.beginPath();
-    ctx.arc(x, 340, 55, 0, Math.PI * 2);
-    ctx.arc(x, 470, 34, 0, Math.PI * 2);
-    ctx.stroke();
-  });
-
-  finishLineArt();
-}
-
-function drawMandala() {
-  drawLineArtSetup();
-  ctx.lineWidth = 6;
-  const cx = 600;
-  const cy = 380;
-
-  for (let r = 70; r <= 300; r += 58) {
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.stroke();
-  }
-
-  for (let i = 0; i < 16; i += 1) {
-    const angle = (Math.PI * 2 * i) / 16;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + Math.cos(angle) * 330, cy + Math.sin(angle) * 330);
-    ctx.stroke();
-
-    drawPetal(cx + Math.cos(angle) * 155, cy + Math.sin(angle) * 155, 28, 72, angle);
-    drawPetal(cx + Math.cos(angle) * 250, cy + Math.sin(angle) * 250, 22, 52, angle + Math.PI / 2);
-  }
-
-  ctx.beginPath();
-  ctx.arc(cx, cy, 36, 0, Math.PI * 2);
-  ctx.stroke();
-  finishLineArt();
-}
-
-function drawOcean() {
-  drawLineArtSetup();
-  ctx.lineWidth = 7;
-
-  ctx.beginPath();
-  ctx.arc(965, 145, 70, 0, Math.PI * 2);
-  ctx.stroke();
-
-  for (let y = 470; y <= 640; y += 55) {
-    ctx.beginPath();
-    ctx.moveTo(70, y);
-    for (let x = 70; x <= 1130; x += 110) {
-      ctx.quadraticCurveTo(x + 55, y - 34, x + 110, y);
-    }
-    ctx.stroke();
-  }
-
-  ctx.beginPath();
-  ctx.moveTo(210, 410);
-  ctx.quadraticCurveTo(300, 330, 390, 410);
-  ctx.quadraticCurveTo(300, 490, 210, 410);
-  ctx.moveTo(390, 410);
-  ctx.lineTo(465, 365);
-  ctx.lineTo(465, 455);
-  ctx.closePath();
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.arc(270, 392, 8, 0, Math.PI * 2);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(720, 420);
-  ctx.bezierCurveTo(650, 365, 650, 300, 720, 250);
-  ctx.bezierCurveTo(790, 300, 790, 365, 720, 420);
-  ctx.moveTo(720, 420);
-  ctx.lineTo(720, 520);
-  ctx.moveTo(720, 470);
-  ctx.quadraticCurveTo(660, 520, 600, 470);
-  ctx.moveTo(720, 470);
-  ctx.quadraticCurveTo(780, 520, 840, 470);
-  ctx.stroke();
-
-  finishLineArt();
-}
-
-function drawHouse() {
-  drawLineArtSetup();
-  ctx.lineWidth = 8;
-
-  ctx.beginPath();
-  ctx.rect(330, 310, 540, 330);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(290, 330);
-  ctx.lineTo(600, 115);
-  ctx.lineTo(910, 330);
-  ctx.closePath();
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.rect(555, 455, 90, 185);
-  ctx.rect(390, 395, 105, 90);
-  ctx.rect(705, 395, 105, 90);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(443, 395);
-  ctx.lineTo(443, 485);
-  ctx.moveTo(390, 440);
-  ctx.lineTo(495, 440);
-  ctx.moveTo(758, 395);
-  ctx.lineTo(758, 485);
-  ctx.moveTo(705, 440);
-  ctx.lineTo(810, 440);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.arc(625, 550, 7, 0, Math.PI * 2);
-  ctx.stroke();
-
-  ctx.lineWidth = 6;
-  ctx.beginPath();
-  ctx.moveTo(150, 640);
-  ctx.bezierCurveTo(320, 585, 500, 675, 670, 630);
-  ctx.bezierCurveTo(840, 590, 1000, 670, 1120, 620);
-  ctx.stroke();
-
-  finishLineArt();
-}
-
-function drawSelectedTemplate() {
-  const page = pageSelect.value;
-  if (page === "flower") drawFlowerGarden();
-  if (page === "butterfly") drawButterfly();
-  if (page === "mandala") drawMandala();
-  if (page === "ocean") drawOcean();
-  if (page === "house") drawHouse();
-  canvasTitle.textContent = pageTitles[page];
-  canvasHelp.textContent = page === "blank" ? "Use your mouse, trackpad, or finger to draw." : "Color inside the outlines or add your own drawings around them.";
-}
-
-function setMode(nextMode) {
+function setMode(nextMode, shape = null) {
   mode = nextMode;
+  selectedShape = shape;
+
   brushButton.classList.toggle("active", mode === "brush");
   eraserButton.classList.toggle("active", mode === "eraser");
-  modePill.textContent = mode === "brush" ? "Brush mode" : "Eraser mode";
+  stampButtons.forEach((button) => {
+    button.classList.toggle("active", mode === "stamp" && button.dataset.shape === selectedShape);
+  });
+
+  if (mode === "brush") {
+    modePill.textContent = "Brush mode";
+    canvasHelp.textContent = "Use your mouse, trackpad, or finger to draw.";
+    canvas.style.cursor = "crosshair";
+  } else if (mode === "eraser") {
+    modePill.textContent = "Eraser mode";
+    canvasHelp.textContent = "Drag across the page to erase.";
+    canvas.style.cursor = "crosshair";
+  } else {
+    const label = selectedShape.charAt(0).toUpperCase() + selectedShape.slice(1);
+    modePill.textContent = `${label} stamp`;
+    canvasHelp.textContent = "Tap or click anywhere on the page to place the selected shape.";
+    canvas.style.cursor = "copy";
+  }
 }
 
 function getCanvasPoint(event) {
   const rect = canvas.getBoundingClientRect();
-  const clientX = event.touches ? event.touches[0].clientX : event.clientX;
-  const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+  const source = event.touches ? event.touches[0] : event;
   return {
-    x: ((clientX - rect.left) / rect.width) * CANVAS_WIDTH,
-    y: ((clientY - rect.top) / rect.height) * CANVAS_HEIGHT
+    x: ((source.clientX - rect.left) / rect.width) * CANVAS_WIDTH,
+    y: ((source.clientY - rect.top) / rect.height) * CANVAS_HEIGHT
   };
 }
 
 function beginDraw(event) {
   event.preventDefault();
+  const point = getCanvasPoint(event);
+
+  if (mode === "stamp") {
+    saveState();
+    drawStamp(point.x, point.y, selectedShape, Number(stampSize.value));
+    return;
+  }
+
   saveState();
   drawing = true;
-  lastPoint = getCanvasPoint(event);
+  lastPoint = point;
 }
 
 function draw(event) {
-  if (!drawing || !lastPoint) return;
+  if (!drawing || !lastPoint || mode === "stamp") return;
   event.preventDefault();
   const point = getCanvasPoint(event);
 
@@ -345,14 +117,8 @@ function draw(event) {
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
   ctx.lineWidth = Number(brushSize.value);
-
-  if (mode === "eraser") {
-    ctx.globalCompositeOperation = "source-over";
-    ctx.strokeStyle = "#ffffff";
-  } else {
-    ctx.globalCompositeOperation = "source-over";
-    ctx.strokeStyle = colorPicker.value;
-  }
+  ctx.globalCompositeOperation = "source-over";
+  ctx.strokeStyle = mode === "eraser" ? "#ffffff" : colorPicker.value;
 
   ctx.beginPath();
   ctx.moveTo(lastPoint.x, lastPoint.y);
@@ -368,26 +134,85 @@ function endDraw() {
   lastPoint = null;
 }
 
+function drawStamp(x, y, shape, size) {
+  const half = size / 2;
+  ctx.save();
+  ctx.fillStyle = colorPicker.value;
+  ctx.strokeStyle = colorPicker.value;
+  ctx.lineWidth = Math.max(3, size * 0.08);
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+  ctx.beginPath();
+
+  if (shape === "circle") {
+    ctx.arc(x, y, half, 0, Math.PI * 2);
+  } else if (shape === "square") {
+    ctx.rect(x - half, y - half, size, size);
+  } else if (shape === "triangle") {
+    ctx.moveTo(x, y - half);
+    ctx.lineTo(x + half, y + half);
+    ctx.lineTo(x - half, y + half);
+    ctx.closePath();
+  } else if (shape === "star") {
+    for (let i = 0; i < 10; i += 1) {
+      const radius = i % 2 === 0 ? half : half * 0.45;
+      const angle = -Math.PI / 2 + (i * Math.PI) / 5;
+      const px = x + Math.cos(angle) * radius;
+      const py = y + Math.sin(angle) * radius;
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+  } else if (shape === "heart") {
+    ctx.moveTo(x, y + half * 0.8);
+    ctx.bezierCurveTo(x - half * 1.15, y + half * 0.1, x - half, y - half * 0.85, x, y - half * 0.25);
+    ctx.bezierCurveTo(x + half, y - half * 0.85, x + half * 1.15, y + half * 0.1, x, y + half * 0.8);
+    ctx.closePath();
+  } else if (shape === "flower") {
+    const petalRadius = size * 0.22;
+    for (let i = 0; i < 6; i += 1) {
+      const angle = (Math.PI * 2 * i) / 6;
+      const px = x + Math.cos(angle) * size * 0.28;
+      const py = y + Math.sin(angle) * size * 0.28;
+      ctx.moveTo(px + petalRadius, py);
+      ctx.arc(px, py, petalRadius, 0, Math.PI * 2);
+    }
+    ctx.moveTo(x + size * 0.18, y);
+    ctx.arc(x, y, size * 0.18, 0, Math.PI * 2);
+  }
+
+  ctx.fill();
+  ctx.restore();
+}
+
 function saveImage() {
   const link = document.createElement("a");
-  link.download = "drawing-and-coloring.png";
+  link.download = "drawing-calm-space.png";
   link.href = canvas.toDataURL("image/png");
   link.click();
 }
 
 function newPrompt() {
-  const nextPrompt = prompts[Math.floor(Math.random() * prompts.length)];
-  promptText.textContent = nextPrompt;
+  promptText.textContent = prompts[Math.floor(Math.random() * prompts.length)];
 }
 
-pageSelect.addEventListener("change", () => clearCanvas(true));
-colorPicker.addEventListener("input", () => setMode("brush"));
+colorPicker.addEventListener("input", () => {
+  if (mode === "eraser") setMode("brush");
+});
+
 brushSize.addEventListener("input", () => {
   brushSizeLabel.textContent = brushSize.value;
 });
 
+stampSize.addEventListener("input", () => {
+  stampSizeLabel.textContent = stampSize.value;
+});
+
 brushButton.addEventListener("click", () => setMode("brush"));
 eraserButton.addEventListener("click", () => setMode("eraser"));
+stampButtons.forEach((button) => {
+  button.addEventListener("click", () => setMode("stamp", button.dataset.shape));
+});
 undoButton.addEventListener("click", restoreLastState);
 clearButton.addEventListener("click", () => clearCanvas(true));
 saveButton.addEventListener("click", saveImage);
@@ -397,10 +222,9 @@ canvas.addEventListener("mousedown", beginDraw);
 canvas.addEventListener("mousemove", draw);
 window.addEventListener("mouseup", endDraw);
 canvas.addEventListener("mouseleave", endDraw);
-
 canvas.addEventListener("touchstart", beginDraw, { passive: false });
 canvas.addEventListener("touchmove", draw, { passive: false });
 window.addEventListener("touchend", endDraw);
 
 setWhiteBackground();
-drawSelectedTemplate();
+setMode("brush");
