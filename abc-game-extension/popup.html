@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ABC Coping Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <p class="eyebrow">Coping Skill Buddy</p>
+      <h1>ABC Coping Game</h1>
+      <p class="intro">Pick a category, start with A, and name one thing for each letter. Go slowly, breathe, and let your mind settle into the game.</p>
+    </section>
+
+    <section class="controls" aria-label="Game controls">
+      <div class="mode-row">
+        <button class="mode-button active" data-mode="solo" type="button">Solo</button>
+        <button class="mode-button" data-mode="turns" type="button">Take turns</button>
+      </div>
+
+      <label for="categoryInput">Category</label>
+      <div class="category-buttons" aria-label="Quick category buttons">
+        <button type="button" data-category="Animals">Animals</button>
+        <button type="button" data-category="Foods">Foods</button>
+        <button type="button" data-category="Places">Places</button>
+        <button type="button" data-category="Coping skills">Coping skills</button>
+      </div>
+      <input id="categoryInput" type="text" value="Animals" />
+    </section>
+
+    <section class="game-card" aria-label="Current letter challenge">
+      <div class="letter" id="currentLetter">A</div>
+      <p id="promptText">Name an animal that starts with A.</p>
+      <textarea id="answerInput" rows="3" placeholder="Type your answer here..."></textarea>
+      <div class="actions">
+        <button id="saveButton" type="button">Save answer</button>
+        <button id="skipButton" class="secondary" type="button">Skip letter</button>
+      </div>
+      <p id="encouragement" class="encouragement" aria-live="polite">You can take your time.</p>
+    </section>
+
+    <section class="reflection" aria-label="Reflection panel">
+      <h2>Reflection</h2>
+      <label for="reflectionInput">How do you feel after playing?</label>
+      <textarea id="reflectionInput" rows="3" placeholder="Example: calmer, focused, a little more relaxed..."></textarea>
+      <button id="saveReflectionButton" type="button">Save reflection</button>
+    </section>
+
+    <section class="progress" aria-label="Progress log">
+      <div class="progress-header">
+        <h2>Progress log</h2>
+        <button id="clearButton" class="secondary" type="button">Clear</button>
+      </div>
+      <div id="progressList" class="progress-list"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
