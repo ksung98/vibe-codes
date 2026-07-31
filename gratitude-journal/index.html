@@ -5,8 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gratitude Journal</title>
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .home-link {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #1f2937;
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.14);
+      border: 1px solid rgba(15, 23, 42, 0.1);
+      backdrop-filter: blur(8px);
+    }
+    .home-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
+    }
+    @media (max-width: 600px) {
+      .home-link {
+        top: 10px;
+        left: 10px;
+        padding: 8px 11px;
+        font-size: 0.84rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <a class="home-link" href="../" aria-label="Back to home page">← Home</a>
+
   <main class="journal-card">
     <section class="header">
       <p class="eyebrow">Daily Reflection</p>
