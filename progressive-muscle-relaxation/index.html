@@ -5,105 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Progressive Muscle Relaxation for Kids</title>
   <style>
-    :root { --bg:#f8f4ee; --card:#fff; --text:#2f2a24; --muted:#71695f; --accent:#7ea987; --accent-dark:#5f8767; --accent-soft:#e7f1e9; --tense:#f3c97b; --relax:#9dc7e8; --border:#e7dfd7; --shadow:0 14px 32px rgba(47,42,36,.14); }
-    * { box-sizing: border-box; }
-    body { margin:0; min-height:100vh; font-family:Arial,Helvetica,sans-serif; background:linear-gradient(160deg,#f8f4ee 0%,#eef5ef 100%); color:var(--text); display:flex; align-items:center; justify-content:center; padding:18px; }
-    .app { width:100%; max-width:440px; background:var(--card); border:1px solid var(--border); border-radius:26px; box-shadow:var(--shadow); padding:22px; text-align:center; }
-    h1 { margin:0 0 6px; font-size:1.52rem; letter-spacing:-.02em; line-height:1.16; }
-    .subtitle { margin:0 0 10px; color:var(--accent-dark); font-weight:800; font-size:.92rem; }
-    .intro { margin:0 auto 18px; color:var(--muted); font-size:.96rem; line-height:1.5; max-width:340px; }
-    .progress { margin:0 0 16px; color:var(--muted); font-size:.92rem; font-weight:700; }
-    .card { border:1px solid var(--border); border-radius:24px; background:#fffdfb; padding:18px 16px 20px; margin-bottom:16px; }
-    .emoji { font-size:3.8rem; margin-bottom:12px; line-height:1; }
-    .body-part { font-size:1.45rem; font-weight:800; margin-bottom:8px; color:var(--text); }
-    .story { color:var(--muted); font-size:.98rem; line-height:1.5; min-height:48px; margin-bottom:16px; }
-    .phase-badge { display:inline-block; min-width:120px; padding:8px 14px; border-radius:999px; font-weight:800; margin-bottom:12px; font-size:.95rem; }
-    .phase-tense { background:#fff0d1; color:#8a5f14; }
-    .phase-relax { background:#e3f1fb; color:#2b678f; }
-    .phase-ready { background:#f0ece7; color:#6b645c; }
-    .phase-done { background:var(--accent-soft); color:var(--accent-dark); }
-    .countdown { width:110px; height:110px; border-radius:50%; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:800; border:6px solid var(--border); background:#fff; }
-    .countdown.tense { border-color:var(--tense); }
-    .countdown.relax { border-color:var(--relax); }
-    .instruction { font-size:1rem; font-weight:700; min-height:48px; line-height:1.45; margin-bottom:6px; }
-    .small-note { color:var(--muted); font-size:.88rem; line-height:1.4; min-height:20px; }
-    .buttons,.extra-buttons { display:flex; gap:10px; margin-top:8px; }
-    button { border:0; border-radius:16px; padding:13px 14px; cursor:pointer; font-weight:800; font-size:.95rem; transition:transform 120ms ease, background 120ms ease, opacity 120ms ease; }
-    button:active { transform:scale(.98); }
-    button:disabled { opacity:.45; cursor:not-allowed; }
-    .secondary { background:#eee8df; color:var(--text); flex:1; }
-    .primary { background:var(--accent); color:white; flex:2; }
-    .primary:hover { background:var(--accent-dark); }
-    .mini { background:#f0ece7; color:var(--text); flex:1; font-size:.88rem; padding:11px 12px; }
-    .footer-note { margin:14px 4px 0; color:var(--muted); font-size:.84rem; line-height:1.4; }
+    :root{--bg:#f8f4ee;--card:#fff;--text:#2f2a24;--muted:#71695f;--accent:#7ea987;--accent-dark:#5f8767;--accent-soft:#e7f1e9;--tense:#f3c97b;--relax:#9dc7e8;--border:#e7dfd7;--shadow:0 14px 32px rgba(47,42,36,.14)}*{box-sizing:border-box}body{margin:0;min-width:370px;min-height:560px;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(160deg,#f8f4ee 0%,#eef5ef 100%);color:var(--text);display:flex;align-items:center;justify-content:center;padding:64px 18px 18px}.home-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.92);color:#2f2a24;text-decoration:none;font-weight:800;box-shadow:0 8px 20px rgba(47,42,36,.14);border:1px solid rgba(47,42,36,.1)}.app{width:100%;max-width:440px;background:var(--card);border:1px solid var(--border);border-radius:26px;box-shadow:var(--shadow);padding:22px;text-align:center}h1{margin:0 0 6px;font-size:1.52rem;letter-spacing:-.02em;line-height:1.16}.subtitle{margin:0 0 10px;color:var(--accent-dark);font-weight:800;font-size:.92rem}.intro{margin:0 auto 18px;color:var(--muted);font-size:.96rem;line-height:1.5;max-width:340px}.progress{margin:0 0 16px;color:var(--muted);font-size:.92rem;font-weight:700}.card{border:1px solid var(--border);border-radius:24px;background:#fffdfb;padding:18px 16px 20px;margin-bottom:16px}.emoji{font-size:3.8rem;margin-bottom:12px;line-height:1}.body-part{font-size:1.45rem;font-weight:800;margin-bottom:8px;color:var(--text)}.story{color:var(--muted);font-size:.98rem;line-height:1.5;min-height:48px;margin-bottom:16px}.phase-badge{display:inline-block;min-width:120px;padding:8px 14px;border-radius:999px;font-weight:800;margin-bottom:12px;font-size:.95rem}.phase-tense{background:#fff0d1;color:#8a5f14}.phase-relax{background:#e3f1fb;color:#2b678f}.phase-ready{background:#f0ece7;color:#6b645c}.phase-done{background:var(--accent-soft);color:var(--accent-dark)}.countdown{width:110px;height:110px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;border:6px solid var(--border);background:#fff}.countdown.tense{border-color:var(--tense)}.countdown.relax{border-color:var(--relax)}.instruction{font-size:1rem;font-weight:700;min-height:48px;line-height:1.45;margin-bottom:6px}.small-note{color:var(--muted);font-size:.88rem;line-height:1.4;min-height:20px}.buttons,.extra-buttons{display:flex;gap:10px;margin-top:8px}button{border:0;border-radius:16px;padding:13px 14px;cursor:pointer;font-weight:800;font-size:.95rem;transition:transform 120ms ease,background 120ms ease,opacity 120ms ease}button:active{transform:scale(.98)}button:disabled{opacity:.45;cursor:not-allowed}.secondary{background:#eee8df;color:var(--text);flex:1}.primary{background:var(--accent);color:#fff;flex:2}.primary:hover{background:var(--accent-dark)}.mini{background:#f0ece7;color:var(--text);flex:1;font-size:.88rem;padding:11px 12px}.footer-note{margin:14px 4px 0;color:var(--muted);font-size:.84rem;line-height:1.4}@media(max-width:600px){body{padding-top:72px}.home-link{top:10px;left:10px;padding:8px 11px;font-size:.84rem}}
   </style>
 </head>
 <body>
-  <main class="app">
-    <h1>Progressive Muscle Relaxation</h1>
-    <p class="subtitle">A kid-friendly PMR exercise</p>
-    <p class="intro">Let’s squeeze and relax different parts of the body. Notice how your body feels when it lets go.</p>
-    <div class="progress" id="progressText">Step 1 of 6</div>
-    <section class="card" aria-live="polite">
-      <div class="emoji" id="emoji">🍋</div>
-      <div class="body-part" id="bodyPart">Hands</div>
-      <div class="story" id="story">Pretend you are squeezing two lemons in your hands.</div>
-      <div class="phase-badge phase-ready" id="phaseBadge">Ready</div>
-      <div class="countdown" id="countdown">4</div>
-      <div class="instruction" id="instruction">Press Start to begin this step.</div>
-      <div class="small-note" id="smallNote">We will squeeze first, then relax.</div>
-    </section>
-    <div class="buttons"><button class="secondary" id="resetBtn">Reset</button><button class="primary" id="actionBtn">Start</button></div>
-    <div class="extra-buttons"><button class="mini" id="repeatBtn">Repeat this part</button><button class="mini" id="skipBtn">Skip to next part</button></div>
-    <p class="footer-note">Tip: Tense gently, not too hard. If anything feels uncomfortable, skip that step.</p>
-  </main>
+  <a class="home-link" href="../" aria-label="Back to home page">← Home</a>
+  <main class="app"><h1>Progressive Muscle Relaxation</h1><p class="subtitle">A kid-friendly PMR exercise</p><p class="intro">Let’s squeeze and relax different parts of the body. Notice how your body feels when it lets go.</p><div class="progress" id="progressText">Step 1 of 6</div><section class="card" aria-live="polite"><div class="emoji" id="emoji">🍋</div><div class="body-part" id="bodyPart">Hands</div><div class="story" id="story">Pretend you are squeezing two lemons in your hands.</div><div class="phase-badge phase-ready" id="phaseBadge">Ready</div><div class="countdown" id="countdown">4</div><div class="instruction" id="instruction">Press Start to begin this step.</div><div class="small-note" id="smallNote">We will squeeze first, then relax.</div></section><div class="buttons"><button class="secondary" id="resetBtn">Reset</button><button class="primary" id="actionBtn">Start</button></div><div class="extra-buttons"><button class="mini" id="repeatBtn">Repeat this part</button><button class="mini" id="skipBtn">Skip to next part</button></div><p class="footer-note">Tip: Tense gently, not too hard. If anything feels uncomfortable, skip that step.</p></main>
   <script>
-    const steps = [
-      { name:'Hands', emoji:'🍋', story:'Pretend you are squeezing two lemons in your hands.', tenseInstruction:'Squeeze your hands into tight fists.', relaxInstruction:'Now let your hands go soft and floppy.' },
-      { name:'Shoulders', emoji:'🐢', story:'Pretend you are a turtle pulling your shoulders up to your shell.', tenseInstruction:'Lift your shoulders up toward your ears.', relaxInstruction:'Drop your shoulders down and let them rest.' },
-      { name:'Face', emoji:'😖', story:'Pretend you tasted something super sour.', tenseInstruction:'Scrunch your face up tight.', relaxInstruction:'Relax your face and let it get smooth again.' },
-      { name:'Belly', emoji:'🤖', story:'Pretend your belly is a robot body, stiff and strong.', tenseInstruction:'Tighten your belly muscles.', relaxInstruction:'Let your belly soften and relax.' },
-      { name:'Legs', emoji:'🪵', story:'Pretend your legs are strong wooden logs.', tenseInstruction:'Squeeze and stiffen your legs.', relaxInstruction:'Let your legs go loose and restful.' },
-      { name:'Feet', emoji:'🦶', story:'Pretend your toes are trying to curl around the sand.', tenseInstruction:'Curl your toes and tighten your feet.', relaxInstruction:'Let your toes uncurl and your feet rest.' }
-    ];
-    const TENSE_SECONDS = 4;
-    const RELAX_SECONDS = 6;
-    const progressText = document.getElementById('progressText');
-    const emoji = document.getElementById('emoji');
-    const bodyPart = document.getElementById('bodyPart');
-    const story = document.getElementById('story');
-    const phaseBadge = document.getElementById('phaseBadge');
-    const countdown = document.getElementById('countdown');
-    const instruction = document.getElementById('instruction');
-    const smallNote = document.getElementById('smallNote');
-    const actionBtn = document.getElementById('actionBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const repeatBtn = document.getElementById('repeatBtn');
-    const skipBtn = document.getElementById('skipBtn');
-    let currentStep = 0;
-    let phase = 'ready';
-    let timeLeft = TENSE_SECONDS;
-    let intervalId = null;
-    function clearTimer() { clearInterval(intervalId); intervalId = null; }
-    function goToReadyForCurrentStep() { clearTimer(); phase = 'ready'; timeLeft = TENSE_SECONDS; render(); }
-    function goToNextStep() { clearTimer(); if (currentStep < steps.length - 1) { currentStep += 1; phase = 'ready'; timeLeft = TENSE_SECONDS; } else { phase = 'allDone'; } render(); }
-    function render() {
-      const step = steps[currentStep];
-      const isRunning = phase === 'tense' || phase === 'relax';
-      const isAllDone = phase === 'allDone';
-      if (!isAllDone) { progressText.textContent = `Step ${currentStep + 1} of ${steps.length}`; emoji.textContent = step.emoji; bodyPart.textContent = step.name; story.textContent = step.story; }
-      if (phase === 'ready') { phaseBadge.textContent = 'Ready'; phaseBadge.className = 'phase-badge phase-ready'; countdown.className = 'countdown'; countdown.textContent = TENSE_SECONDS; instruction.textContent = 'Press Start to begin this step.'; smallNote.textContent = 'You can also skip this body part if you want.'; actionBtn.textContent = 'Start'; }
-      if (phase === 'tense') { phaseBadge.textContent = 'Tense'; phaseBadge.className = 'phase-badge phase-tense'; countdown.className = 'countdown tense'; countdown.textContent = timeLeft; instruction.textContent = step.tenseInstruction; smallNote.textContent = 'Hold gently... and keep breathing.'; actionBtn.textContent = 'Running...'; }
-      if (phase === 'relax') { phaseBadge.textContent = 'Relax'; phaseBadge.className = 'phase-badge phase-relax'; countdown.className = 'countdown relax'; countdown.textContent = timeLeft; instruction.textContent = step.relaxInstruction; smallNote.textContent = 'Notice how your body feels softer now.'; actionBtn.textContent = 'Running...'; }
-      if (phase === 'stepDone') { phaseBadge.textContent = 'Nice job!'; phaseBadge.className = 'phase-badge phase-done'; countdown.className = 'countdown'; countdown.textContent = '✓'; instruction.textContent = 'That body part is all done.'; smallNote.textContent = currentStep < steps.length - 1 ? 'Press Next, Repeat this part, or Skip to move on.' : 'Press Finish, or repeat this body part if you want.'; actionBtn.textContent = currentStep < steps.length - 1 ? 'Next' : 'Finish'; }
-      if (phase === 'allDone') { progressText.textContent = 'Finished'; emoji.textContent = '🌟'; bodyPart.textContent = 'You did it!'; story.textContent = 'Your body worked hard and then learned how to relax.'; phaseBadge.textContent = 'All done'; phaseBadge.className = 'phase-badge phase-done'; countdown.className = 'countdown'; countdown.textContent = '♥'; instruction.textContent = 'Take one more slow breath and enjoy the calm feeling.'; smallNote.textContent = 'You can press Start Over anytime.'; actionBtn.textContent = 'Start Over'; }
-      actionBtn.disabled = isRunning; repeatBtn.disabled = isRunning || isAllDone; skipBtn.disabled = isRunning || isAllDone; skipBtn.textContent = currentStep < steps.length - 1 ? 'Skip to next part' : 'Skip to finish';
-    }
-    function startTensePhase() { clearTimer(); phase = 'tense'; timeLeft = TENSE_SECONDS; render(); intervalId = setInterval(() => { timeLeft -= 1; render(); if (timeLeft <= 0) { clearTimer(); startRelaxPhase(); } }, 1000); }
-    function startRelaxPhase() { clearTimer(); phase = 'relax'; timeLeft = RELAX_SECONDS; render(); intervalId = setInterval(() => { timeLeft -= 1; render(); if (timeLeft <= 0) { clearTimer(); phase = 'stepDone'; render(); } }, 1000); }
-    function handleAction() { if (phase === 'ready') { startTensePhase(); return; } if (phase === 'stepDone') { goToNextStep(); return; } if (phase === 'allDone') { currentStep = 0; goToReadyForCurrentStep(); } }
-    function resetAll() { clearTimer(); currentStep = 0; phase = 'ready'; timeLeft = TENSE_SECONDS; render(); }
-    actionBtn.addEventListener('click', handleAction); resetBtn.addEventListener('click', resetAll); repeatBtn.addEventListener('click', goToReadyForCurrentStep); skipBtn.addEventListener('click', goToNextStep); render();
+    const steps=[{name:'Hands',emoji:'🍋',story:'Pretend you are squeezing two lemons in your hands.',tenseInstruction:'Squeeze your hands into tight fists.',relaxInstruction:'Now let your hands go soft and floppy.'},{name:'Shoulders',emoji:'🐢',story:'Pretend you are a turtle pulling your shoulders up to your shell.',tenseInstruction:'Lift your shoulders up toward your ears.',relaxInstruction:'Drop your shoulders down and let them rest.'},{name:'Face',emoji:'😖',story:'Pretend you tasted something super sour.',tenseInstruction:'Scrunch your face up tight.',relaxInstruction:'Relax your face and let it get smooth again.'},{name:'Belly',emoji:'🤖',story:'Pretend your belly is a robot body, stiff and strong.',tenseInstruction:'Tighten your belly muscles.',relaxInstruction:'Let your belly soften and relax.'},{name:'Legs',emoji:'🪵',story:'Pretend your legs are strong wooden logs.',tenseInstruction:'Squeeze and stiffen your legs.',relaxInstruction:'Let your legs go loose and restful.'},{name:'Feet',emoji:'🦶',story:'Pretend your toes are trying to curl around the sand.',tenseInstruction:'Curl your toes and tighten your feet.',relaxInstruction:'Let your toes uncurl and your feet rest.'}];const TENSE_SECONDS=4,RELAX_SECONDS=6,progressText=document.getElementById('progressText'),emoji=document.getElementById('emoji'),bodyPart=document.getElementById('bodyPart'),story=document.getElementById('story'),phaseBadge=document.getElementById('phaseBadge'),countdown=document.getElementById('countdown'),instruction=document.getElementById('instruction'),smallNote=document.getElementById('smallNote'),actionBtn=document.getElementById('actionBtn'),resetBtn=document.getElementById('resetBtn'),repeatBtn=document.getElementById('repeatBtn'),skipBtn=document.getElementById('skipBtn');let currentStep=0,phase='ready',timeLeft=TENSE_SECONDS,intervalId=null;function clearTimer(){clearInterval(intervalId);intervalId=null}function goToReadyForCurrentStep(){clearTimer();phase='ready';timeLeft=TENSE_SECONDS;render()}function goToNextStep(){clearTimer();if(currentStep<steps.length-1){currentStep++;phase='ready';timeLeft=TENSE_SECONDS}else{phase='allDone'}render()}function render(){const step=steps[currentStep],isRunning=phase==='tense'||phase==='relax',isAllDone=phase==='allDone';if(!isAllDone){progressText.textContent=`Step ${currentStep+1} of ${steps.length}`;emoji.textContent=step.emoji;bodyPart.textContent=step.name;story.textContent=step.story}if(phase==='ready'){phaseBadge.textContent='Ready';phaseBadge.className='phase-badge phase-ready';countdown.className='countdown';countdown.textContent=TENSE_SECONDS;instruction.textContent='Press Start to begin this step.';smallNote.textContent='You can also skip this body part if you want.';actionBtn.textContent='Start'}if(phase==='tense'){phaseBadge.textContent='Tense';phaseBadge.className='phase-badge phase-tense';countdown.className='countdown tense';countdown.textContent=timeLeft;instruction.textContent=step.tenseInstruction;smallNote.textContent='Hold gently... and keep breathing.';actionBtn.textContent='Running...'}if(phase==='relax'){phaseBadge.textContent='Relax';phaseBadge.className='phase-badge phase-relax';countdown.className='countdown relax';countdown.textContent=timeLeft;instruction.textContent=step.relaxInstruction;smallNote.textContent='Notice how your body feels softer now.';actionBtn.textContent='Running...'}if(phase==='stepDone'){phaseBadge.textContent='Nice job!';phaseBadge.className='phase-badge phase-done';countdown.className='countdown';countdown.textContent='✓';instruction.textContent='That body part is all done.';smallNote.textContent=currentStep<steps.length-1?'Press Next, Repeat this part, or Skip to move on.':'Press Finish, or repeat this body part if you want.';actionBtn.textContent=currentStep<steps.length-1?'Next':'Finish'}if(phase==='allDone'){progressText.textContent='Finished';emoji.textContent='🌟';bodyPart.textContent='You did it!';story.textContent='Your body worked hard and then learned how to relax.';phaseBadge.textContent='All done';phaseBadge.className='phase-badge phase-done';countdown.className='countdown';countdown.textContent='♥';instruction.textContent='Take one more slow breath and enjoy the calm feeling.';smallNote.textContent='You can press Start Over anytime.';actionBtn.textContent='Start Over'}actionBtn.disabled=isRunning;repeatBtn.disabled=isRunning||isAllDone;skipBtn.disabled=isRunning||isAllDone;skipBtn.textContent=currentStep<steps.length-1?'Skip to next part':'Skip to finish'}function startTensePhase(){clearTimer();phase='tense';timeLeft=TENSE_SECONDS;render();intervalId=setInterval(()=>{timeLeft--;render();if(timeLeft<=0){clearTimer();startRelaxPhase()}},1000)}function startRelaxPhase(){clearTimer();phase='relax';timeLeft=RELAX_SECONDS;render();intervalId=setInterval(()=>{timeLeft--;render();if(timeLeft<=0){clearTimer();phase='stepDone';render()}},1000)}function handleAction(){if(phase==='ready'){startTensePhase();return}if(phase==='stepDone'){goToNextStep();return}if(phase==='allDone'){currentStep=0;goToReadyForCurrentStep()}}function resetAll(){clearTimer();currentStep=0;phase='ready';timeLeft=TENSE_SECONDS;render()}actionBtn.addEventListener('click',handleAction);resetBtn.addEventListener('click',resetAll);repeatBtn.addEventListener('click',goToReadyForCurrentStep);skipBtn.addEventListener('click',goToNextStep);render();
   </script>
 </body>
 </html>
