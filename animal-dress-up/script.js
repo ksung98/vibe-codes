@@ -1,46 +1,75 @@
-const animalButtons = [...document.querySelectorAll('[data-animal]')];
-const itemButtons = [...document.querySelectorAll('.item')];
-const animals = [...document.querySelectorAll('.animal')];
-const wearableSets = [...document.querySelectorAll('.wearable-set')];
+const animalButtons = [...document.querySelectorAll('.choice[data-animal]')];
+const itemButtons = [...document.querySelectorAll('.item[data-category][data-item]')];
+const animalGroups = {
+  capybara: document.getElementById('capybara'),
+  panda: document.getElementById('panda')
+};
+const wearableSets = {
+  capybara: document.getElementById('capybara-wearables'),
+  panda: document.getElementById('panda-wearables')
+};
 const randomButton = document.getElementById('randomButton');
 const resetButton = document.getElementById('resetButton');
 const outfitMessage = document.getElementById('outfitMessage');
 
 let selectedAnimal = 'capybara';
-const outfit = { hat: 'none', top: 'none', bottom: 'none', accessory: 'none', shoes: 'none' };
+const outfit = {
+  hat: 'none',
+  top: 'none',
+  bottom: 'none',
+  accessory: 'none',
+  shoes: 'none'
+};
 
-function labelFor(value) {
-  const labels = {
-    sun: 'a sun hat',
-    party: 'a party hat',
-    shirt: 'a T-shirt',
-    scarf: 'a scarf',
-    shorts: 'shorts',
-    purse: 'a purse',
-    sneakers: 'sneakers'
-  };
-  return labels[value] || value;
+const labels = {
+  sun: 'a sun hat',
+  party: 'a party hat',
+  shirt: 'a T-shirt',
+  scarf: 'a scarf',
+  shorts: 'shorts',
+  purse: 'a purse',
+  sneakers: 'sneakers'
+};
+
+function setVisible(element, visible) {
+  if (!element) return;
+  element.classList.toggle('hidden', !visible);
+  element.style.display = visible ? 'inline' : 'none';
 }
 
 function render() {
-  animals.forEach(animal => animal.classList.toggle('hidden', animal.id !== selectedAnimal));
-  animalButtons.forEach(button => button.classList.toggle('active', button.dataset.animal === selectedAnimal));
+  Object.entries(animalGroups).forEach(([name, group]) => {
+    setVisible(group, name === selectedAnimal);
+  });
 
-  wearableSets.forEach(set => {
-    const isSelectedSet = set.id === `${selectedAnimal}-wearables`;
-    set.classList.toggle('hidden', !isSelectedSet);
-    [...set.querySelectorAll('.wearable')].forEach(wearable => {
-      const chosen = outfit[wearable.dataset.category] === wearable.dataset.item;
-      wearable.classList.toggle('hidden', !isSelectedSet || !chosen);
+  Object.entries(wearableSets).forEach(([name, set]) => {
+    const selected = name === selectedAnimal;
+    setVisible(set, selected);
+
+    if (!set) return;
+    set.querySelectorAll('.wearable').forEach(wearable => {
+      const category = wearable.dataset.category;
+      const item = wearable.dataset.item;
+      setVisible(wearable, selected && outfit[category] === item);
     });
   });
 
-  itemButtons.forEach(button => {
-    button.classList.toggle('active', outfit[button.dataset.category] === button.dataset.item);
+  animalButtons.forEach(button => {
+    button.classList.toggle('active', button.dataset.animal === selectedAnimal);
+    button.setAttribute('aria-pressed', button.dataset.animal === selectedAnimal ? 'true' : 'false');
   });
 
-  const chosen = Object.values(outfit).filter(item => item !== 'none').map(labelFor);
+  itemButtons.forEach(button => {
+    const active = outfit[button.dataset.category] === button.dataset.item;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  const chosen = Object.values(outfit)
+    .filter(item => item !== 'none')
+    .map(item => labels[item] || item);
   const animalName = selectedAnimal[0].toUpperCase() + selectedAnimal.slice(1);
+
   outfitMessage.textContent = chosen.length
     ? `${animalName} is wearing ${chosen.join(', ')}!`
     : `Your ${selectedAnimal} is ready to dress up!`;
@@ -78,7 +107,9 @@ randomButton.addEventListener('click', () => {
 });
 
 resetButton.addEventListener('click', () => {
-  Object.keys(outfit).forEach(category => { outfit[category] = 'none'; });
+  Object.keys(outfit).forEach(category => {
+    outfit[category] = 'none';
+  });
   render();
 });
 
