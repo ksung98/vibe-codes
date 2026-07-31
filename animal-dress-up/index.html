@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animal Dress-Up</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="home-link" href="../">← Home</a>
+  <main class="app">
+    <header class="hero">
+      <p class="eyebrow">Creative Play</p>
+      <h1>Animal Dress-Up</h1>
+      <p>Choose an animal and create a fun outfit. Mix and match as many times as you like!</p>
+    </header>
+
+    <section class="layout">
+      <aside class="controls" aria-label="Dress-up controls">
+        <div class="control-group">
+          <h2>Choose an animal</h2>
+          <div class="choice-row animal-choices">
+            <button class="choice active" data-animal="capybara" type="button">Capybara</button>
+            <button class="choice" data-animal="panda" type="button">Panda</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <h2>Hat</h2>
+          <div class="choice-row">
+            <button class="item active" data-category="hat" data-item="none" type="button">None</button>
+            <button class="item" data-category="hat" data-item="sun" type="button">Sun hat</button>
+            <button class="item" data-category="hat" data-item="party" type="button">Party hat</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <h2>Top</h2>
+          <div class="choice-row">
+            <button class="item active" data-category="top" data-item="none" type="button">None</button>
+            <button class="item" data-category="top" data-item="shirt" type="button">T-shirt</button>
+            <button class="item" data-category="top" data-item="scarf" type="button">Scarf</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <h2>Bottom</h2>
+          <div class="choice-row">
+            <button class="item active" data-category="bottom" data-item="none" type="button">None</button>
+            <button class="item" data-category="bottom" data-item="shorts" type="button">Shorts</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <h2>Accessories</h2>
+          <div class="choice-row">
+            <button class="item active" data-category="accessory" data-item="none" type="button">None</button>
+            <button class="item" data-category="accessory" data-item="purse" type="button">Purse</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <h2>Shoes</h2>
+          <div class="choice-row">
+            <button class="item active" data-category="shoes" data-item="none" type="button">None</button>
+            <button class="item" data-category="shoes" data-item="sneakers" type="button">Sneakers</button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="randomButton" type="button">Surprise me</button>
+          <button id="resetButton" type="button">Reset outfit</button>
+        </div>
+      </aside>
+
+      <section class="stage-panel">
+        <div class="stage" aria-live="polite">
+          <svg id="character" viewBox="0 0 500 620" role="img" aria-label="Dressed-up animal">
+            <ellipse cx="250" cy="565" rx="155" ry="28" fill="#d8cfc8" opacity=".55"/>
+
+            <g id="capybara" class="animal">
+              <ellipse cx="250" cy="340" rx="145" ry="185" fill="#c98b4a" stroke="#4b2b19" stroke-width="9"/>
+              <circle cx="250" cy="175" r="135" fill="#d79b58" stroke="#4b2b19" stroke-width="9"/>
+              <circle cx="155" cy="92" r="38" fill="#c98b4a" stroke="#4b2b19" stroke-width="9"/>
+              <circle cx="345" cy="92" r="38" fill="#c98b4a" stroke="#4b2b19" stroke-width="9"/>
+              <ellipse cx="198" cy="175" rx="11" ry="18" fill="#2f1a10"/>
+              <ellipse cx="302" cy="175" rx="11" ry="18" fill="#2f1a10"/>
+              <ellipse cx="250" cy="225" rx="35" ry="24" fill="#8f542f"/>
+              <path d="M220 250 Q250 278 280 250" fill="none" stroke="#3c2114" stroke-width="8" stroke-linecap="round"/>
+              <ellipse cx="132" cy="362" rx="31" ry="102" fill="#c98b4a" stroke="#4b2b19" stroke-width="8"/>
+              <ellipse cx="368" cy="362" rx="31" ry="102" fill="#c98b4a" stroke="#4b2b19" stroke-width="8"/>
+              <rect x="165" y="468" width="66" height="105" rx="28" fill="#a96839" stroke="#4b2b19" stroke-width="8"/>
+              <rect x="269" y="468" width="66" height="105" rx="28" fill="#a96839" stroke="#4b2b19" stroke-width="8"/>
+            </g>
+
+            <g id="panda" class="animal hidden">
+              <ellipse cx="250" cy="340" rx="145" ry="185" fill="#fffaf0" stroke="#302821" stroke-width="9"/>
+              <circle cx="250" cy="175" r="135" fill="#fffaf0" stroke="#302821" stroke-width="9"/>
+              <circle cx="155" cy="87" r="42" fill="#312b28" stroke="#302821" stroke-width="9"/>
+              <circle cx="345" cy="87" r="42" fill="#312b28" stroke="#302821" stroke-width="9"/>
+              <ellipse cx="198" cy="175" rx="39" ry="50" fill="#312b28" transform="rotate(18 198 175)"/>
+              <ellipse cx="302" cy="175" rx="39" ry="50" fill="#312b28" transform="rotate(-18 302 175)"/>
+              <circle cx="198" cy="176" r="10" fill="#fff"/>
+              <circle cx="302" cy="176" r="10" fill="#fff"/>
+              <ellipse cx="250" cy="225" rx="27" ry="20" fill="#312b28"/>
+              <path d="M220 250 Q250 278 280 250" fill="none" stroke="#312b28" stroke-width="8" stroke-linecap="round"/>
+              <ellipse cx="132" cy="362" rx="34" ry="105" fill="#312b28" stroke="#302821" stroke-width="8"/>
+              <ellipse cx="368" cy="362" rx="34" ry="105" fill="#312b28" stroke="#302821" stroke-width="8"/>
+              <rect x="165" y="468" width="66" height="105" rx="28" fill="#312b28" stroke="#302821" stroke-width="8"/>
+              <rect x="269" y="468" width="66" height="105" rx="28" fill="#312b28" stroke="#302821" stroke-width="8"/>
+            </g>
+
+            <g id="hat-sun" class="wearable hidden">
+              <ellipse cx="250" cy="82" rx="145" ry="31" fill="#ffd66b" stroke="#6b4c1f" stroke-width="8"/>
+              <path d="M170 82 Q180 5 250 5 Q320 5 330 82Z" fill="#ffe28e" stroke="#6b4c1f" stroke-width="8"/>
+              <path d="M184 49 Q250 70 316 49" fill="none" stroke="#e67a8e" stroke-width="15"/>
+            </g>
+            <g id="hat-party" class="wearable hidden">
+              <path d="M185 91 L250 0 L315 91Z" fill="#9b82e6" stroke="#4b3d78" stroke-width="8"/>
+              <circle cx="250" cy="0" r="16" fill="#ffcf62"/>
+              <circle cx="225" cy="48" r="8" fill="#ff8fa3"/><circle cx="270" cy="60" r="8" fill="#76c7c0"/>
+            </g>
+            <g id="top-shirt" class="wearable hidden">
+              <path d="M147 280 Q165 250 195 245 L250 275 L305 245 Q335 250 353 280 L330 420 Q250 450 170 420Z" fill="#79bde8" stroke="#315a74" stroke-width="8"/>
+              <path d="M220 255 Q250 290 280 255" fill="none" stroke="#315a74" stroke-width="8"/>
+            </g>
+            <g id="top-scarf" class="wearable hidden">
+              <path d="M150 265 Q250 320 350 265 L335 320 Q250 350 165 320Z" fill="#ef7f91" stroke="#7f3946" stroke-width="8"/>
+              <path d="M300 305 L350 430 L300 410 L270 325Z" fill="#ef7f91" stroke="#7f3946" stroke-width="8"/>
+            </g>
+            <g id="bottom-shorts" class="wearable hidden">
+              <path d="M155 410 Q250 440 345 410 L335 505 L270 505 L250 455 L230 505 L165 505Z" fill="#6e87cf" stroke="#34467d" stroke-width="8"/>
+              <circle cx="250" cy="431" r="6" fill="#fff"/>
+            </g>
+            <g id="accessory-purse" class="wearable hidden">
+              <path d="M315 280 Q390 300 395 410" fill="none" stroke="#7b4c86" stroke-width="12"/>
+              <rect x="330" y="380" width="100" height="88" rx="20" fill="#c78bd4" stroke="#6b3c77" stroke-width="8"/>
+              <circle cx="380" cy="412" r="8" fill="#ffe17a"/>
+            </g>
+            <g id="shoes-sneakers" class="wearable hidden">
+              <path d="M145 545 Q190 525 238 552 L232 585 L138 585 Q120 565 145 545Z" fill="#f7f7ff" stroke="#4d4d72" stroke-width="8"/>
+              <path d="M355 545 Q310 525 262 552 L268 585 L362 585 Q380 565 355 545Z" fill="#f7f7ff" stroke="#4d4d72" stroke-width="8"/>
+              <path d="M153 556 L215 570 M347 556 L285 570" stroke="#79bde8" stroke-width="7"/>
+            </g>
+          </svg>
+        </div>
+        <p id="outfitMessage">Your capybara is ready to dress up!</p>
+      </section>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
