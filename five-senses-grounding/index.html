@@ -5,83 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Five Senses Grounding</title>
   <style>
-    :root { --bg:#f7f4ef; --card:#fff; --text:#2f2a24; --muted:#6f675e; --accent:#7a9e7e; --accent-dark:#4f7354; --border:#e7dfd4; --shadow:0 12px 28px rgba(47,42,36,.12); }
-    * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; font-family:Arial,Helvetica,sans-serif; background:linear-gradient(160deg,#f7f4ef 0%,#edf4ee 100%); color:var(--text); display:flex; align-items:center; justify-content:center; padding:18px; }
-    .app { width:100%; max-width:420px; background:var(--card); border:1px solid var(--border); border-radius:24px; box-shadow:var(--shadow); padding:22px; }
-    .header { text-align:center; margin-bottom:18px; }
-    .header h1 { font-size:1.55rem; margin:0 0 8px; letter-spacing:-.02em; }
-    .header p { margin:0; color:var(--muted); font-size:.95rem; line-height:1.45; }
-    .progress-wrap { margin:18px 0; height:10px; background:#eee8df; border-radius:999px; overflow:hidden; }
-    .progress { height:100%; width:0%; background:var(--accent); border-radius:999px; transition:width 250ms ease; }
-    .step-card { border:1px solid var(--border); border-radius:20px; padding:18px; background:#fffdf9; min-height:245px; }
-    .step-number { display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:50%; background:#e6f0e7; color:var(--accent-dark); font-weight:700; margin-bottom:12px; }
-    .step-title { font-size:1.25rem; margin:0 0 8px; }
-    .prompt { color:var(--muted); line-height:1.5; margin:0 0 14px; }
-    textarea { width:100%; min-height:92px; resize:vertical; border:1px solid var(--border); border-radius:14px; padding:12px; font:inherit; color:var(--text); background:#fff; outline:none; line-height:1.4; }
-    textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(122,158,126,.18); }
-    .hint { margin-top:10px; font-size:.86rem; color:var(--muted); }
-    .buttons { display:flex; gap:10px; margin-top:16px; }
-    button { border:0; border-radius:14px; padding:12px 14px; cursor:pointer; font-weight:700; font-size:.95rem; transition:transform 120ms ease, opacity 120ms ease; }
-    button:active { transform:scale(.98); }
-    .secondary { background:#eee8df; color:var(--text); flex:1; }
-    .primary { background:var(--accent); color:white; flex:2; }
-    .primary:hover { background:var(--accent-dark); }
-    .secondary:disabled { opacity:.45; cursor:not-allowed; }
-    .summary { display:none; }
-    .summary h2 { margin:0 0 10px; font-size:1.35rem; }
-    .summary p { color:var(--muted); line-height:1.5; }
-    .summary-list { padding:0; margin:14px 0; list-style:none; }
-    .summary-list li { border:1px solid var(--border); border-radius:14px; padding:10px; margin-bottom:8px; background:#fffdf9; line-height:1.4; }
-    .breath { text-align:center; margin:14px 0 2px; color:var(--accent-dark); font-weight:700; }
+    :root{--bg:#f7f4ef;--card:#fff;--text:#2f2a24;--muted:#6f675e;--accent:#7a9e7e;--accent-dark:#4f7354;--border:#e7dfd4;--shadow:0 12px 28px rgba(47,42,36,.12)}*{box-sizing:border-box}body{margin:0;min-width:340px;min-height:480px;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(160deg,#f7f4ef 0%,#edf4ee 100%);color:var(--text);display:flex;align-items:center;justify-content:center;padding:64px 18px 18px}.home-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.92);color:#2f2a24;text-decoration:none;font-weight:800;box-shadow:0 8px 20px rgba(47,42,36,.14);border:1px solid rgba(47,42,36,.1)}.app{width:100%;max-width:420px;background:var(--card);border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:22px}.header{text-align:center;margin-bottom:18px}.header h1{font-size:1.55rem;margin:0 0 8px;letter-spacing:-.02em}.header p{margin:0;color:var(--muted);font-size:.95rem;line-height:1.45}.progress-wrap{margin:18px 0;height:10px;background:#eee8df;border-radius:999px;overflow:hidden}.progress{height:100%;width:0%;background:var(--accent);border-radius:999px;transition:width 250ms ease}.step-card{border:1px solid var(--border);border-radius:20px;padding:18px;background:#fffdf9;min-height:245px}.step-number{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:#e6f0e7;color:var(--accent-dark);font-weight:700;margin-bottom:12px}.step-title{font-size:1.25rem;margin:0 0 8px}.prompt{color:var(--muted);line-height:1.5;margin:0 0 14px}textarea{width:100%;min-height:92px;resize:vertical;border:1px solid var(--border);border-radius:14px;padding:12px;font:inherit;color:var(--text);background:#fff;outline:none;line-height:1.4}textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(122,158,126,.18)}.hint{margin-top:10px;font-size:.86rem;color:var(--muted)}.buttons{display:flex;gap:10px;margin-top:16px}button{border:0;border-radius:14px;padding:12px 14px;cursor:pointer;font-weight:700;font-size:.95rem;transition:transform 120ms ease,opacity 120ms ease}button:active{transform:scale(.98)}.secondary{background:#eee8df;color:var(--text);flex:1}.primary{background:var(--accent);color:#fff;flex:2}.primary:hover{background:var(--accent-dark)}.secondary:disabled{opacity:.45;cursor:not-allowed}.summary{display:none}.summary h2{margin:0 0 10px;font-size:1.35rem}.summary p{color:var(--muted);line-height:1.5}.summary-list{padding:0;margin:14px 0;list-style:none}.summary-list li{border:1px solid var(--border);border-radius:14px;padding:10px;margin-bottom:8px;background:#fffdf9;line-height:1.4}.breath{text-align:center;margin:14px 0 2px;color:var(--accent-dark);font-weight:700}@media(max-width:600px){body{padding-top:72px}.home-link{top:10px;left:10px;padding:8px 11px;font-size:.84rem}}
   </style>
 </head>
 <body>
-  <main class="app" aria-live="polite">
-    <section class="header"><h1>Five Senses Grounding</h1><p>Take a slow breath. Move through each sense and notice what is here, right now.</p></section>
-    <div class="progress-wrap" aria-label="Progress"><div class="progress" id="progress"></div></div>
-    <section class="step-card" id="guide">
-      <div class="step-number" id="stepNumber">5</div>
-      <h2 class="step-title" id="stepTitle">Things you can see</h2>
-      <p class="prompt" id="prompt">Name five things you can see around you.</p>
-      <textarea id="response" placeholder="Example: window, shoes, lamp..."></textarea>
-      <div class="hint" id="hint">There is no wrong answer. Just notice what is around you.</div>
-    </section>
-    <section class="summary" id="summary">
-      <h2>You made it through.</h2>
-      <p>Look at what you noticed. Your body and mind are here in this moment.</p>
-      <ul class="summary-list" id="summaryList"></ul>
-      <div class="breath">Take one more slow breath.</div>
-    </section>
-    <div class="buttons"><button class="secondary" id="backBtn" disabled>Back</button><button class="primary" id="nextBtn">Next</button></div>
-  </main>
+  <a class="home-link" href="../" aria-label="Back to home page">← Home</a>
+  <main class="app" aria-live="polite"><section class="header"><h1>Five Senses Grounding</h1><p>Take a slow breath. Move through each sense and notice what is here, right now.</p></section><div class="progress-wrap" aria-label="Progress"><div class="progress" id="progress"></div></div><section class="step-card" id="guide"><div class="step-number" id="stepNumber">5</div><h2 class="step-title" id="stepTitle">Things you can see</h2><p class="prompt" id="prompt">Name five things you can see around you.</p><textarea id="response" placeholder="Example: window, shoes, lamp..."></textarea><div class="hint" id="hint">There is no wrong answer. Just notice what is around you.</div></section><section class="summary" id="summary"><h2>You made it through.</h2><p>Look at what you noticed. Your body and mind are here in this moment.</p><ul class="summary-list" id="summaryList"></ul><div class="breath">Take one more slow breath.</div></section><div class="buttons"><button class="secondary" id="backBtn" disabled>Back</button><button class="primary" id="nextBtn">Next</button></div></main>
   <script>
-    const steps = [
-      { count:5, title:'Things you can see', prompt:'Name five things you can see around you.', placeholder:'Example: window, shoes, lamp, cup, blanket...', hint:'Look for colors, shapes, light, shadows, or small details.' },
-      { count:4, title:'Things you can feel', prompt:'Name four things you can physically feel.', placeholder:'Example: feet on floor, chair under me...', hint:'Notice texture, temperature, pressure, or weight.' },
-      { count:3, title:'Things you can hear', prompt:'Name three things you can hear.', placeholder:'Example: air conditioner, typing, birds...', hint:'Sounds can be loud, quiet, near, or far away.' },
-      { count:2, title:'Things you can smell', prompt:'Name two things you can smell.', placeholder:'Example: coffee, soap...', hint:'If you cannot smell much, name two smells you like.' },
-      { count:1, title:'Thing you can taste', prompt:'Name one thing you can taste.', placeholder:'Example: mint, water, tea...', hint:'You can also notice the taste already in your mouth.' }
-    ];
-    let currentStep = 0;
-    const answers = Array(steps.length).fill('');
-    const guide = document.getElementById('guide');
-    const summary = document.getElementById('summary');
-    const summaryList = document.getElementById('summaryList');
-    const progress = document.getElementById('progress');
-    const stepNumber = document.getElementById('stepNumber');
-    const stepTitle = document.getElementById('stepTitle');
-    const prompt = document.getElementById('prompt');
-    const response = document.getElementById('response');
-    const hint = document.getElementById('hint');
-    const backBtn = document.getElementById('backBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    function renderStep() { const step = steps[currentStep]; guide.style.display = 'block'; summary.style.display = 'none'; stepNumber.textContent = step.count; stepTitle.textContent = step.title; prompt.textContent = step.prompt; response.placeholder = step.placeholder; response.value = answers[currentStep]; hint.textContent = step.hint; progress.style.width = `${(currentStep / steps.length) * 100}%`; backBtn.disabled = currentStep === 0; nextBtn.textContent = currentStep === steps.length - 1 ? 'Finish' : 'Next'; response.focus(); }
-    function escapeHtml(text) { return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;'); }
-    function renderSummary() { guide.style.display = 'none'; summary.style.display = 'block'; progress.style.width = '100%'; backBtn.disabled = false; nextBtn.textContent = 'Start Over'; summaryList.innerHTML = ''; steps.forEach((step, index) => { const item = document.createElement('li'); const answer = answers[index].trim() || 'You noticed this sense quietly.'; item.innerHTML = `<strong>${step.count} ${step.title.toLowerCase()}:</strong> ${escapeHtml(answer)}`; summaryList.appendChild(item); }); }
-    nextBtn.addEventListener('click', () => { if (summary.style.display === 'block') { currentStep = 0; answers.fill(''); renderStep(); return; } answers[currentStep] = response.value; if (currentStep < steps.length - 1) { currentStep += 1; renderStep(); } else { renderSummary(); } });
-    backBtn.addEventListener('click', () => { if (summary.style.display === 'block') { currentStep = steps.length - 1; renderStep(); return; } answers[currentStep] = response.value; if (currentStep > 0) { currentStep -= 1; renderStep(); } });
-    renderStep();
+    const steps=[{count:5,title:'Things you can see',prompt:'Name five things you can see around you.',placeholder:'Example: window, shoes, lamp, cup, blanket...',hint:'Look for colors, shapes, light, shadows, or small details.'},{count:4,title:'Things you can feel',prompt:'Name four things you can physically feel.',placeholder:'Example: feet on floor, chair under me...',hint:'Notice texture, temperature, pressure, or weight.'},{count:3,title:'Things you can hear',prompt:'Name three things you can hear.',placeholder:'Example: air conditioner, typing, birds...',hint:'Sounds can be loud, quiet, near, or far away.'},{count:2,title:'Things you can smell',prompt:'Name two things you can smell.',placeholder:'Example: coffee, soap...',hint:'If you cannot smell much, name two smells you like.'},{count:1,title:'Thing you can taste',prompt:'Name one thing you can taste.',placeholder:'Example: mint, water, tea...',hint:'You can also notice the taste already in your mouth.'}];let currentStep=0;const answers=Array(steps.length).fill(''),guide=document.getElementById('guide'),summary=document.getElementById('summary'),summaryList=document.getElementById('summaryList'),progress=document.getElementById('progress'),stepNumber=document.getElementById('stepNumber'),stepTitle=document.getElementById('stepTitle'),prompt=document.getElementById('prompt'),response=document.getElementById('response'),hint=document.getElementById('hint'),backBtn=document.getElementById('backBtn'),nextBtn=document.getElementById('nextBtn');function renderStep(){const step=steps[currentStep];guide.style.display='block';summary.style.display='none';stepNumber.textContent=step.count;stepTitle.textContent=step.title;prompt.textContent=step.prompt;response.placeholder=step.placeholder;response.value=answers[currentStep];hint.textContent=step.hint;progress.style.width=`${currentStep/steps.length*100}%`;backBtn.disabled=currentStep===0;nextBtn.textContent=currentStep===steps.length-1?'Finish':'Next';response.focus()}function renderSummary(){guide.style.display='none';summary.style.display='block';progress.style.width='100%';backBtn.disabled=false;nextBtn.textContent='Start Over';summaryList.innerHTML='';steps.forEach((step,index)=>{const item=document.createElement('li');const answer=answers[index].trim()||'You noticed this sense quietly.';item.innerHTML=`<strong>${step.count} ${step.title.toLowerCase()}:</strong> ${escapeHtml(answer)}`;summaryList.appendChild(item)})}function escapeHtml(text){return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}nextBtn.addEventListener('click',()=>{if(summary.style.display==='block'){currentStep=0;answers.fill('');renderStep();return}answers[currentStep]=response.value;if(currentStep<steps.length-1){currentStep++;renderStep()}else{renderSummary()}});backBtn.addEventListener('click',()=>{if(summary.style.display==='block'){currentStep=steps.length-1;renderStep();return}answers[currentStep]=response.value;if(currentStep>0){currentStep--;renderStep()}});renderStep();
   </script>
 </body>
 </html>
