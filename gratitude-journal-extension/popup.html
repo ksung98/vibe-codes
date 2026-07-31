@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gratitude Journal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="journal-card">
+    <section class="header">
+      <p class="eyebrow">Daily Reflection</p>
+      <h1>Gratitude Journal</h1>
+      <p class="instructions">Take a quiet moment to write down something you are grateful for today.</p>
+    </section>
+
+    <section class="entry-form" aria-label="Gratitude journal entry form">
+      <label for="gratitudeInput">Today I am grateful for...</label>
+      <textarea id="gratitudeInput" rows="5" placeholder="Example: a kind conversation, a warm meal, a peaceful moment..."></textarea>
+      <button id="saveButton" type="button">Save entry</button>
+      <p id="saveMessage" class="save-message" aria-live="polite"></p>
+    </section>
+
+    <section class="entries-section" aria-label="Saved gratitude entries">
+      <div class="entries-header">
+        <h2>Past entries</h2>
+        <button id="clearButton" class="secondary-button" type="button">Clear all</button>
+      </div>
+      <div id="entriesList" class="entries-list"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
