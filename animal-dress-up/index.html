@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Animal Dress-Up</title>
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
   <a class="home-link" href="../">← Home</a>
@@ -66,28 +66,34 @@
               <linearGradient id="capyFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5ad6c"/><stop offset="1" stop-color="#bb7440"/></linearGradient>
               <linearGradient id="pandaWhite" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffef8"/><stop offset="1" stop-color="#dedbd2"/></linearGradient>
               <linearGradient id="pandaBlack" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#403b38"/><stop offset="1" stop-color="#171514"/></linearGradient>
+              <filter id="softShadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#5a4030" flood-opacity=".22"/></filter>
             </defs>
             <ellipse cx="300" cy="590" rx="150" ry="28" fill="#cfc4bc" opacity=".55"/>
-            <g id="capybara" class="animal">
+
+            <g id="capybara" class="animal" filter="url(#softShadow)">
               <ellipse cx="300" cy="380" rx="137" ry="176" fill="url(#capyBody)" stroke="#4a2b1b" stroke-width="9"/>
               <ellipse cx="300" cy="210" rx="145" ry="132" fill="url(#capyFace)" stroke="#4a2b1b" stroke-width="9"/>
-              <ellipse cx="185" cy="112" rx="42" ry="35" fill="#bf7742" stroke="#4a2b1b" stroke-width="9"/>
-              <ellipse cx="415" cy="112" rx="42" ry="35" fill="#bf7742" stroke="#4a2b1b" stroke-width="9"/>
+              <ellipse cx="185" cy="112" rx="42" ry="35" fill="#bf7742" stroke="#4a2b1b" stroke-width="9" transform="rotate(-18 185 112)"/>
+              <ellipse cx="415" cy="112" rx="42" ry="35" fill="#bf7742" stroke="#4a2b1b" stroke-width="9" transform="rotate(18 415 112)"/>
               <ellipse cx="213" cy="208" rx="13" ry="19" fill="#2d1c14"/><ellipse cx="387" cy="208" rx="13" ry="19" fill="#2d1c14"/>
-              <ellipse cx="300" cy="245" rx="25" ry="17" fill="#3a2117"/><path d="M272 274 Q300 300 328 274" fill="none" stroke="#3a2117" stroke-width="8" stroke-linecap="round"/>
-              <ellipse cx="168" cy="386" rx="31" ry="98" fill="#b86f3c" stroke="#4a2b1b" stroke-width="8"/><ellipse cx="432" cy="386" rx="31" ry="98" fill="#b86f3c" stroke="#4a2b1b" stroke-width="8"/>
+              <ellipse cx="300" cy="255" rx="54" ry="40" fill="#a86035" opacity=".9"/><ellipse cx="300" cy="245" rx="25" ry="17" fill="#3a2117"/>
+              <path d="M272 274 Q300 300 328 274" fill="none" stroke="#3a2117" stroke-width="8" stroke-linecap="round"/>
+              <ellipse cx="168" cy="386" rx="31" ry="98" fill="#b86f3c" stroke="#4a2b1b" stroke-width="8" transform="rotate(6 168 386)"/>
+              <ellipse cx="432" cy="386" rx="31" ry="98" fill="#b86f3c" stroke="#4a2b1b" stroke-width="8" transform="rotate(-6 432 386)"/>
               <rect x="205" y="485" width="73" height="104" rx="31" fill="#9b592f" stroke="#4a2b1b" stroke-width="8"/><rect x="322" y="485" width="73" height="104" rx="31" fill="#9b592f" stroke="#4a2b1b" stroke-width="8"/>
             </g>
-            <g id="panda" class="animal hidden">
+
+            <g id="panda" class="animal hidden" filter="url(#softShadow)">
               <ellipse cx="300" cy="380" rx="135" ry="176" fill="url(#pandaWhite)" stroke="#292523" stroke-width="9"/>
-              <circle cx="205" cy="112" r="48" fill="url(#pandaBlack)"/><circle cx="395" cy="112" r="48" fill="url(#pandaBlack)"/>
+              <circle cx="205" cy="112" r="48" fill="url(#pandaBlack)" stroke="#292523" stroke-width="9"/><circle cx="395" cy="112" r="48" fill="url(#pandaBlack)" stroke="#292523" stroke-width="9"/>
               <ellipse cx="300" cy="210" rx="143" ry="134" fill="url(#pandaWhite)" stroke="#292523" stroke-width="9"/>
               <ellipse cx="230" cy="210" rx="44" ry="56" fill="url(#pandaBlack)" transform="rotate(19 230 210)"/><ellipse cx="370" cy="210" rx="44" ry="56" fill="url(#pandaBlack)" transform="rotate(-19 370 210)"/>
               <circle cx="230" cy="211" r="11" fill="#fff"/><circle cx="370" cy="211" r="11" fill="#fff"/>
               <ellipse cx="300" cy="258" rx="27" ry="20" fill="#24201e"/><path d="M272 280 Q300 304 328 280" fill="none" stroke="#24201e" stroke-width="8" stroke-linecap="round"/>
-              <ellipse cx="166" cy="386" rx="33" ry="102" fill="url(#pandaBlack)"/><ellipse cx="434" cy="386" rx="33" ry="102" fill="url(#pandaBlack)"/>
-              <rect x="205" y="484" width="73" height="105" rx="31" fill="url(#pandaBlack)"/><rect x="322" y="484" width="73" height="105" rx="31" fill="url(#pandaBlack)"/>
+              <ellipse cx="166" cy="386" rx="33" ry="102" fill="url(#pandaBlack)" stroke="#292523" stroke-width="8" transform="rotate(6 166 386)"/><ellipse cx="434" cy="386" rx="33" ry="102" fill="url(#pandaBlack)" stroke="#292523" stroke-width="8" transform="rotate(-6 434 386)"/>
+              <rect x="205" y="484" width="73" height="105" rx="31" fill="url(#pandaBlack)" stroke="#292523" stroke-width="8"/><rect x="322" y="484" width="73" height="105" rx="31" fill="url(#pandaBlack)" stroke="#292523" stroke-width="8"/>
             </g>
+
             <g id="capybara-wearables" class="wearable-set">
               <g data-category="hat" data-item="sun" class="wearable hidden"><ellipse cx="300" cy="102" rx="151" ry="28" fill="#f8d878" stroke="#6d4b20" stroke-width="8"/><path d="M210 100 Q225 28 300 28 Q375 28 390 100Z" fill="#ffe69b" stroke="#6d4b20" stroke-width="8"/></g>
               <g data-category="hat" data-item="party" class="wearable hidden"><path d="M230 116 L300 17 L370 116Z" fill="#9d83e8" stroke="#4b3d78" stroke-width="8"/><circle cx="300" cy="17" r="16" fill="#ffd468"/></g>
@@ -97,6 +103,7 @@
               <g data-category="accessory" data-item="purse" class="wearable hidden"><path d="M376 315 Q449 345 457 474" fill="none" stroke="#784b84" stroke-width="12"/><rect x="389" y="443" width="111" height="91" rx="22" fill="#c78bd4" stroke="#6b3c77" stroke-width="8"/></g>
               <g data-category="shoes" data-item="sneakers" class="wearable hidden"><path d="M184 548 Q229 528 283 556 L278 597 L171 597 Q148 572 184 548Z" fill="#fafaff" stroke="#4d4e70" stroke-width="8"/><path d="M416 548 Q371 528 317 556 L322 597 L429 597 Q452 572 416 548Z" fill="#fafaff" stroke="#4d4e70" stroke-width="8"/></g>
             </g>
+
             <g id="panda-wearables" class="wearable-set hidden">
               <g data-category="hat" data-item="sun" class="wearable hidden"><ellipse cx="300" cy="98" rx="137" ry="26" fill="#f8d878" stroke="#6d4b20" stroke-width="8"/><path d="M221 97 Q235 32 300 32 Q365 32 379 97Z" fill="#ffe69b" stroke="#6d4b20" stroke-width="8"/></g>
               <g data-category="hat" data-item="party" class="wearable hidden"><path d="M239 111 L300 19 L361 111Z" fill="#9d83e8" stroke="#4b3d78" stroke-width="8"/><circle cx="300" cy="18" r="15" fill="#ffd468"/></g>
@@ -112,6 +119,6 @@
       </section>
     </section>
   </main>
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
