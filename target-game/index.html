@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coping Skill Buddy - Target Game</title>
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #4f46e5;
+      --primary-soft: #e0e7ff;
+      --success: #0f766e;
+      --success-soft: #ccfbf1;
+      --border: #e5e7eb;
+      --shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #eef2ff 0%, var(--bg) 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #4338ca 0%, #6366f1 45%, #818cf8 100%);
+      color: white;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 900px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+      }
+
+      .grid > .card:first-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      width: 100%;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+    }
+
+    .subtle {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 0;
+    }
+
+    .field { margin: 16px 0; }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 14px;
+      font: inherit;
+      color: var(--text);
+      background: white;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .tab-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f7f7fb;
+    }
+
+    .tab-button {
+      appearance: none;
+      border: 0;
+      border-radius: 0;
+      background: white;
+      color: #2563eb;
+      padding: 18px 16px;
+      font: inherit;
+      font-weight: 600;
+      box-shadow: inset 0 -4px 0 #ef4444;
+    }
+
+    .helper {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 16px;
+      padding: 14px;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    .game-panel {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .game-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      width: 100%;
+    }
+
+    @media (max-width: 650px) {
+      .game-meta { grid-template-columns: 1fr; }
+    }
+
+    .meta-tile {
+      border: 1px solid var(--border);
+      background: #fafafa;
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    .meta-tile small {
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .buddy-box {
+      background: #f8fafc;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 16px;
+    }
+
+    .buddy-box strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .secondary {
+      background: #f3f4f6;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .status {
+      margin-top: 8px;
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--success-soft);
+      color: var(--success);
+      display: none;
+      line-height: 1.5;
+    }
+
+    .status.show { display: block; }
+
+    .log {
+      margin-top: 8px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      display: grid;
+      gap: 10px;
+      max-height: 320px;
+      overflow: auto;
+    }
+
+    .entry {
+      border-radius: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      background: #fafafa;
+      line-height: 1.45;
+    }
+
+    .entry.user { border-left: 4px solid #818cf8; }
+    .entry.buddy { border-left: 4px solid #14b8a6; }
+    .entry small { display: block; color: var(--muted); margin-bottom: 4px; }
+
+    .footer-note {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <h1>Coping Skill Buddy</h1>
+      <p>A supportive practice tool for the Target Game. Ask yes/no questions, make careful guesses, and let the buddy answer one step at a time.</p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>Coping Skill Games</h2>
+        <p class="subtle">Use focused questions to figure out the secret Target item.</p>
+
+        <div class="field">
+          <label>Choose a coping skill</label>
+          <div class="tab-row" id="gameTabs">
+            <button class="tab-button active" type="button">Target Game</button>
+          </div>
+        </div>
+
+        <div class="helper" id="gameInstructions">
+          <strong>How it works:</strong>
+          In the Target Game, the buddy secretly chooses an item from Target. Ask yes or no questions until you can identify it.
+        </div>
+
+        <div class="game-panel" id="gamePanel">
+          <div class="game-meta" id="targetMeta">
+            <div class="meta-tile"><small>Store</small>Target</div>
+            <div class="meta-tile"><small>Question count</small><span id="questionCount">0</span></div>
+            <div class="meta-tile"><small>Goal</small>Guess the item</div>
+          </div>
+
+          <div class="buddy-box" id="standardBuddyBox">
+            <strong>Buddy says</strong>
+            <div id="buddyMessage">I have a Target item in mind. Ask a yes or no question, or make a guess when you are ready.</div>
+          </div>
+
+          <div class="field" id="targetQuestionField">
+            <label for="targetQuestion">Your yes/no question or guess</label>
+            <input id="targetQuestion" type="text" placeholder="Example: Is it found in the bathroom? or Is it a toothbrush?" />
+          </div>
+
+          <div class="actions">
+            <button class="primary" id="submitBtn">Submit question</button>
+            <button class="secondary" id="hintBtn">Need a gentle prompt</button>
+            <button class="secondary" id="revealBtn">Reveal item</button>
+            <button class="secondary" id="resetBtn">Start over</button>
+          </div>
+
+          <div class="status" id="statusBox"></div>
+          <div class="log" id="log"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Supportive add-ons</h2>
+        <p class="subtle">A coping skill buddy can do more than run a game. These lightweight prompts can make the experience feel more grounding.</p>
+
+        <div class="field">
+          <label for="checkIn">Optional check-in</label>
+          <textarea id="checkIn" placeholder="How are you feeling right now? Example: anxious, restless, overwhelmed."></textarea>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="reflectBtn">Generate supportive reflection</button>
+        </div>
+
+        <div class="status" id="reflectionBox"></div>
+
+        <p class="footer-note">Tip: Start with broad questions about location, use, texture, price, who uses it, or what kind of item it might be.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const targetItems = [
+      { name:'toothbrush', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:true, bathroom:true, kitchen:false, cleaning:true, hygiene:true, toy:false, wearable:false, homeDecor:false, kidUse:true, adultUse:true, soft:false, paper:false, fabric:false, squeezable:false } },
+      { name:'shampoo', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:true, bathroom:true, kitchen:false, cleaning:true, hygiene:true, toy:false, wearable:false, homeDecor:false, kidUse:true, adultUse:true, soft:false, paper:false, fabric:false, squeezable:true } },
+      { name:'notebook', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:true, bathroom:false, kitchen:false, cleaning:false, hygiene:false, toy:false, wearable:false, homeDecor:false, kidUse:true, adultUse:true, soft:false, paper:true, fabric:false, squeezable:false } },
+      { name:'pillow', traits:{ edible:false, drinkable:false, under20:false, electricity:false, everyday:true, bathroom:false, kitchen:false, cleaning:false, hygiene:false, toy:false, wearable:false, homeDecor:true, kidUse:true, adultUse:true, soft:true, paper:false, fabric:true, squeezable:true } },
+      { name:'water bottle', traits:{ edible:false, drinkable:true, under20:true, electricity:false, everyday:true, bathroom:false, kitchen:true, cleaning:false, hygiene:false, toy:false, wearable:false, homeDecor:false, kidUse:true, adultUse:true, soft:false, paper:false, fabric:false, squeezable:false } },
+      { name:'stuffed animal', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:false, bathroom:false, kitchen:false, cleaning:false, hygiene:false, toy:true, wearable:false, homeDecor:false, kidUse:true, adultUse:false, soft:true, paper:false, fabric:true, squeezable:true } },
+      { name:'t-shirt', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:true, bathroom:false, kitchen:false, cleaning:false, hygiene:false, toy:false, wearable:true, homeDecor:false, kidUse:true, adultUse:true, soft:true, paper:false, fabric:true, squeezable:false } },
+      { name:'throw blanket', traits:{ edible:false, drinkable:false, under20:false, electricity:false, everyday:true, bathroom:false, kitchen:false, cleaning:false, hygiene:false, toy:false, wearable:false, homeDecor:true, kidUse:true, adultUse:true, soft:true, paper:false, fabric:true, squeezable:true } },
+      { name:'hairbrush', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:true, bathroom:true, kitchen:false, cleaning:false, hygiene:true, toy:false, wearable:false, homeDecor:false, kidUse:true, adultUse:true, soft:false, paper:false, fabric:false, squeezable:false } },
+      { name:'candle', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:false, bathroom:false, kitchen:false, cleaning:false, hygiene:false, toy:false, wearable:false, homeDecor:true, kidUse:false, adultUse:true, soft:false, paper:false, fabric:false, squeezable:false } },
+      { name:'marker', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:false, bathroom:false, kitchen:false, cleaning:false, hygiene:false, toy:false, wearable:false, homeDecor:false, kidUse:true, adultUse:true, soft:false, paper:false, fabric:false, squeezable:false } },
+      { name:'body lotion', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:true, bathroom:true, kitchen:false, cleaning:false, hygiene:true, toy:false, wearable:false, homeDecor:false, kidUse:true, adultUse:true, soft:false, paper:false, fabric:false, squeezable:true } },
+      { name:'socks', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:true, bathroom:false, kitchen:false, cleaning:false, hygiene:false, toy:false, wearable:true, homeDecor:false, kidUse:true, adultUse:true, soft:true, paper:false, fabric:true, squeezable:false } },
+      { name:'picture frame', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:false, bathroom:false, kitchen:false, cleaning:false, hygiene:false, toy:false, wearable:false, homeDecor:true, kidUse:false, adultUse:true, soft:false, paper:false, fabric:false, squeezable:false } },
+      { name:'puzzle', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:false, bathroom:false, kitchen:false, cleaning:false, hygiene:false, toy:true, wearable:false, homeDecor:false, kidUse:true, adultUse:true, soft:false, paper:true, fabric:false, squeezable:false } },
+      { name:'mug', traits:{ edible:false, drinkable:true, under20:true, electricity:false, everyday:true, bathroom:false, kitchen:true, cleaning:false, hygiene:false, toy:false, wearable:false, homeDecor:false, kidUse:false, adultUse:true, soft:false, paper:false, fabric:false, squeezable:false } },
+      { name:'slippers', traits:{ edible:false, drinkable:false, under20:true, electricity:false, everyday:true, bathroom:false, kitchen:false, cleaning:false, hygiene:false, toy:false, wearable:true, homeDecor:false, kidUse:true, adultUse:true, soft:true, paper:false, fabric:true, squeezable:false } }
+    ];
+
+    let currentTargetItem = null;
+    let targetQuestionCount = 0;
+
+    const el = {
+      targetQuestion: document.getElementById('targetQuestion'),
+      submitBtn: document.getElementById('submitBtn'),
+      hintBtn: document.getElementById('hintBtn'),
+      revealBtn: document.getElementById('revealBtn'),
+      resetBtn: document.getElementById('resetBtn'),
+      statusBox: document.getElementById('statusBox'),
+      log: document.getElementById('log'),
+      questionCount: document.getElementById('questionCount'),
+      checkIn: document.getElementById('checkIn'),
+      reflectBtn: document.getElementById('reflectBtn'),
+      reflectionBox: document.getElementById('reflectionBox'),
+      buddyMessage: document.getElementById('buddyMessage')
+    };
+
+    function pickTargetItem() {
+      currentTargetItem = targetItems[Math.floor(Math.random() * targetItems.length)];
+      targetQuestionCount = 0;
+      el.questionCount.textContent = '0';
+      el.buddyMessage.textContent = 'I have a Target item in mind. Ask a yes or no question, or make a guess when you are ready.';
+    }
+
+    function showStatus(message) {
+      el.statusBox.textContent = message;
+      el.statusBox.classList.add('show');
+    }
+
+    function hideStatus() {
+      el.statusBox.classList.remove('show');
+      el.statusBox.textContent = '';
+    }
+
+    function addLogEntry(type, text) {
+      const div = document.createElement('div');
+      div.className = 'entry ' + type;
+      const who = type === 'user' ? 'You' : 'Buddy';
+      div.innerHTML = '<small>' + who + '</small>' + text;
+      el.log.prepend(div);
+    }
+
+    function sanitizeGuess(text) {
+      let guess = text.toLowerCase().trim();
+      ['is it ', 'is this ', 'is the item ', 'my guess is ', 'i guess ', 'could it be ', 'would it be ', 'maybe it is ', 'is your item ', 'is the answer '].forEach(prefix => {
+        if (guess.startsWith(prefix)) guess = guess.slice(prefix.length);
+      });
+      ['?', '.', '!', ',', ':', ';'].forEach(mark => { guess = guess.split(mark).join(''); });
+      return guess.trim();
+    }
+
+    function textHasAny(text, phrases) {
+      return phrases.some(phrase => text.includes(phrase));
+    }
+
+    function normalizeItemText(text) {
+      let normalized = text.toLowerCase();
+      ['?', '.', '!', ',', ':', ';', '-', '_', '(', ')', "'", '"'].forEach(mark => {
+        normalized = normalized.split(mark).join(' ');
+      });
+      ['the', 'a', 'an', 'my', 'your', 'item', 'answer', 'guess', 'maybe', 'it', 'is'].forEach(word => {
+        normalized = (' ' + normalized + ' ').split(' ' + word + ' ').join(' ');
+      });
+      return normalized.split(' ').filter(Boolean).join(' ').trim();
+    }
+
+    function looksLikeSpecificItemGuess(question) {
+      const starters = ['is it ', 'is this ', 'is the item ', 'could it be ', 'would it be ', 'maybe it is ', 'my guess is ', 'i guess ', 'is your item ', 'is the answer '];
+      return starters.some(start => question.startsWith(start));
+    }
+
+    function findClosestKnownItem(guess) {
+      const normalizedGuess = normalizeItemText(guess);
+      if (!normalizedGuess) return null;
+      for (const item of targetItems) {
+        const normalizedName = normalizeItemText(item.name);
+        if (normalizedGuess === normalizedName) return item.name;
+        if (normalizedGuess.includes(normalizedName) || normalizedName.includes(normalizedGuess)) return item.name;
+      }
+      return null;
+    }
+
+    function detectTargetTrait(question) {
+      const checks = [
+        { trait:'edible', phrases:['eat','food','snack','meal','edible','consume'] },
+        { trait:'drinkable', phrases:['drink','water','beverage','sip','hold water'] },
+        { trait:'under20', phrases:['under $20','under 20','less than 20','cheap','affordable','budget','cost less'] },
+        { trait:'electricity', phrases:['electric','battery','plug','charge','charger','cord'] },
+        { trait:'everyday', phrases:['every day','everyday','daily','used often','regularly','all the time'] },
+        { trait:'bathroom', phrases:['bathroom','sink','shower','toilet','restroom'] },
+        { trait:'kitchen', phrases:['kitchen','pantry','fridge','counter','cooking'] },
+        { trait:'cleaning', phrases:['clean','cleaning','wash','scrub','wipe','sanitize'] },
+        { trait:'hygiene', phrases:['hygiene','personal care','grooming','self care','toiletry'] },
+        { trait:'toy', phrases:['toy','play','for fun','play with'] },
+        { trait:'wearable', phrases:['wear','wearable','clothing','shirt','pants','apparel'] },
+        { trait:'homeDecor', phrases:['home decor','decor','decorate','display','living room','bedroom decor'] },
+        { trait:'kidUse', phrases:['kid','child','children','for kids'] },
+        { trait:'adultUse', phrases:['adult','grown up','for adults'] },
+        { trait:'soft', phrases:['soft','fluffy','plush','cushy','cozy'] },
+        { trait:'paper', phrases:['paper','write on it','write in it','pages'] },
+        { trait:'fabric', phrases:['fabric','cloth','textile','material'] },
+        { trait:'squeezable', phrases:['squeeze','squishy','compress','hug'] }
+      ];
+      for (const check of checks) {
+        if (textHasAny(question, check.phrases)) return check.trait;
+      }
+      return null;
+    }
+
+    function detectTargetCategory(question) {
+      const categories = [
+        { label:'bathroom', phrases:['bathroom','restroom','sink area','shower'] },
+        { label:'kitchen', phrases:['kitchen','pantry','fridge','cooking area'] },
+        { label:'wearable', phrases:['clothing','apparel','wardrobe','wear'] },
+        { label:'homeDecor', phrases:['home decor','decor','living room','bedroom'] },
+        { label:'toy', phrases:['toy section','toy','playroom'] }
+      ];
+      for (const category of categories) {
+        if (textHasAny(question, category.phrases)) return category.label;
+      }
+      return null;
+    }
+
+    function answerTargetQuestion(input) {
+      const raw = input.trim();
+      const question = raw.toLowerCase();
+      if (!raw) {
+        showStatus('Ask a yes or no question or type a guess to keep going.');
+        return;
+      }
+
+      hideStatus();
+      addLogEntry('user', raw);
+      targetQuestionCount += 1;
+      el.questionCount.textContent = String(targetQuestionCount);
+
+      const itemName = currentTargetItem.name.toLowerCase();
+      const cleanedGuess = sanitizeGuess(raw);
+      const normalizedCurrentItem = normalizeItemText(itemName);
+      const normalizedGuess = normalizeItemText(cleanedGuess);
+      const fuzzyGuesses = [itemName, 'a ' + itemName, 'an ' + itemName, 'the ' + itemName];
+
+      if (fuzzyGuesses.includes(cleanedGuess) || normalizedGuess === normalizedCurrentItem) {
+        addLogEntry('buddy', 'Yes!! It is <strong>' + currentTargetItem.name + '</strong>. Nice job figuring it out in ' + targetQuestionCount + ' question' + (targetQuestionCount === 1 ? '' : 's') + '.');
+        showStatus('Great work. You used focused, step-by-step questioning to solve it. Press Start over for a new item.');
+        return;
+      }
+
+      if (looksLikeSpecificItemGuess(question)) {
+        const matchedKnownItem = findClosestKnownItem(cleanedGuess);
+        if (matchedKnownItem) {
+          addLogEntry('buddy', 'No, it is not ' + matchedKnownItem + '.');
+          return;
+        }
+        if (normalizedGuess) {
+          addLogEntry('buddy', 'No, that is not the item I picked.');
+          return;
+        }
+      }
+
+      const matchedTrait = detectTargetTrait(question);
+      if (matchedTrait) {
+        addLogEntry('buddy', currentTargetItem.traits[matchedTrait] ? 'Yes.' : 'No.');
+        return;
+      }
+
+      const matchedCategory = detectTargetCategory(question);
+      if (matchedCategory) {
+        addLogEntry('buddy', currentTargetItem.traits[matchedCategory] ? 'Yes.' : 'No.');
+        return;
+      }
+
+      if (textHasAny(question, ['for your body','used on your body','goes on your body'])) {
+        addLogEntry('buddy', currentTargetItem.traits.hygiene || currentTargetItem.traits.wearable ? 'Yes.' : 'No.');
+        return;
+      }
+
+      addLogEntry('buddy', 'I am not sure based on that wording, so try another yes or no question about price, location, use, texture, who uses it, or what kind of item it might be.');
+    }
+
+    function revealTargetItem() {
+      addLogEntry('buddy', 'The item was <strong>' + currentTargetItem.name + '</strong>. Press Start over for a new item.');
+      showStatus('Revealed: ' + currentTargetItem.name + '.');
+    }
+
+    function supportivePrompt() {
+      const prompts = [
+        'Try asking where it is usually found, like the bathroom, kitchen, clothing area, or home section.',
+        'You could ask whether it is used every day, whether it is under twenty dollars, or whether it is soft.',
+        'If you feel stuck, ask whether it is for cleaning, hygiene, clothing, toys, or home decor.',
+        'Try a broad question first, then make a specific guess when you have enough clues.'
+      ];
+      showStatus(prompts[Math.floor(Math.random() * prompts.length)]);
+    }
+
+    function resetGame() {
+      el.targetQuestion.value = '';
+      el.log.innerHTML = '';
+      hideStatus();
+      pickTargetItem();
+    }
+
+    function submitTurn() {
+      answerTargetQuestion(el.targetQuestion.value);
+      el.targetQuestion.value = '';
+    }
+
+    function generateReflection() {
+      const text = el.checkIn.value.trim();
+      const reflections = [];
+      if (!text) {
+        reflections.push('You do not have to have the perfect words. Even taking a minute to practice a simple coping skill can be a solid reset.');
+      } else {
+        reflections.push('It sounds like you may be feeling ' + text + '. Thank you for naming that.');
+      }
+      reflections.push('Using a distraction-based coping skill can help create a little space between you and the intensity of the moment.');
+      reflections.push('You only need to focus on one question at a time, not the whole problem at once.');
+      el.reflectionBox.textContent = reflections.join(' ');
+      el.reflectionBox.classList.add('show');
+    }
+
+    el.submitBtn.addEventListener('click', submitTurn);
+    el.hintBtn.addEventListener('click', supportivePrompt);
+    el.revealBtn.addEventListener('click', revealTargetItem);
+    el.resetBtn.addEventListener('click', resetGame);
+    el.reflectBtn.addEventListener('click', generateReflection);
+    el.targetQuestion.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitTurn();
+      }
+    });
+
+    pickTargetItem();
+  </script>
+</body>
+</html>
