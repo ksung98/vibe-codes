@@ -10,12 +10,12 @@ const wearableLayers = document.querySelectorAll(".wearable-layer");
 const animals = {
   capybara: {
     name: "capybara",
-    image: "assets/capybara.webp",
+    image: "assets/capybara.webp?v=2",
     message: "Your capybara is ready to dress up!"
   },
   panda: {
     name: "panda",
-    image: "assets/panda.webp",
+    image: "assets/panda-fixed.webp?v=2",
     message: "Your panda is ready to dress up!"
   }
 };
