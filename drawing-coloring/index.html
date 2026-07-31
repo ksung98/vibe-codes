@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drawing and Coloring Calm Space</title>
+  <title>Drawing Calm Space</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -13,27 +13,14 @@
     <section class="hero">
       <div>
         <p class="eyebrow">Creative Coping Tool</p>
-        <h1>Drawing and Coloring Calm Space</h1>
-        <p>Draw freely, erase, save your picture, or choose a coloring page and fill it in at your own pace.</p>
+        <h1>Drawing Calm Space</h1>
+        <p>Draw freely, erase, add colorful shape stamps, and save your picture when you are finished.</p>
       </div>
       <button id="saveButton" class="save-button" type="button">Save image</button>
     </section>
 
     <section class="workspace" aria-label="Drawing workspace">
       <aside class="toolbar" aria-label="Drawing tools">
-        <div class="tool-group">
-          <label for="pageSelect">Coloring page</label>
-          <select id="pageSelect">
-            <option value="blank">Blank drawing page</option>
-            <option value="flower">Flower garden</option>
-            <option value="butterfly">Butterfly</option>
-            <option value="mandala">Simple mandala</option>
-            <option value="ocean">Ocean scene</option>
-            <option value="house">Cozy house</option>
-          </select>
-          <p class="hint">Choosing a page will clear the canvas and load new outlines.</p>
-        </div>
-
         <div class="tool-group">
           <label for="colorPicker">Color</label>
           <input id="colorPicker" type="color" value="#7f77d9" />
@@ -47,6 +34,24 @@
         <div class="tool-buttons" role="group" aria-label="Brush mode">
           <button id="brushButton" class="active" type="button">Brush</button>
           <button id="eraserButton" type="button">Eraser</button>
+        </div>
+
+        <div class="tool-group">
+          <label>Shape stamps</label>
+          <div class="stamp-grid" role="group" aria-label="Choose a shape stamp">
+            <button class="stamp-button" data-shape="circle" type="button" aria-label="Circle stamp">●</button>
+            <button class="stamp-button" data-shape="square" type="button" aria-label="Square stamp">■</button>
+            <button class="stamp-button" data-shape="triangle" type="button" aria-label="Triangle stamp">▲</button>
+            <button class="stamp-button" data-shape="star" type="button" aria-label="Star stamp">★</button>
+            <button class="stamp-button" data-shape="heart" type="button" aria-label="Heart stamp">♥</button>
+            <button class="stamp-button flower-icon" data-shape="flower" type="button" aria-label="Flower stamp">✿</button>
+          </div>
+          <p class="hint">Choose a shape, then tap or click anywhere on the page to stamp it.</p>
+        </div>
+
+        <div class="tool-group">
+          <label for="stampSize">Stamp size: <span id="stampSizeLabel">80</span></label>
+          <input id="stampSize" type="range" min="30" max="180" value="80" />
         </div>
 
         <div class="tool-buttons" role="group" aria-label="Canvas actions">
@@ -64,7 +69,7 @@
       <section class="canvas-panel">
         <div class="canvas-header">
           <div>
-            <h2 id="canvasTitle">Blank drawing page</h2>
+            <h2>Blank drawing page</h2>
             <p id="canvasHelp">Use your mouse, trackpad, or finger to draw.</p>
           </div>
           <div class="mode-pill" id="modePill">Brush mode</div>
