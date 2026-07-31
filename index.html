@@ -3,18 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coping Bubbles</title>
+  <title>Coping Tools Hub</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="screen">
-    <section class="calm-card" aria-label="Coping skill instructions">
-      <h1>Breathe with the bubbles</h1>
-      <p>Focus on one bubble at a time and watch it float on your screen. Focus on breathing by taking a slow breath, then a slow breath out.</p>
-      <button id="resetButton" type="button">Refresh bubbles</button>
+  <main class="hub">
+    <section class="hero">
+      <p class="eyebrow">Coping Skill Extensions</p>
+      <h1>Choose a coping tool</h1>
+      <p class="intro">Pick one of the activities below to open it in your browser. Each tool has its own page and can be used as a calming, reflective activity.</p>
     </section>
 
-    <div id="bubbleContainer" aria-hidden="true"></div>
+    <section class="tool-grid" aria-label="Available coping tools">
+      <a class="tool-card bubbles" href="coping-bubbles/">
+        <span class="icon">◌</span>
+        <h2>Coping Bubbles</h2>
+        <p>Watch colorful bubbles float while practicing slow breathing.</p>
+        <span class="open-label">Open tool →</span>
+      </a>
+
+      <a class="tool-card gratitude" href="gratitude-journal/">
+        <span class="icon">♡</span>
+        <h2>Gratitude Journal</h2>
+        <p>Write and save what you are grateful for today.</p>
+        <span class="open-label">Open tool →</span>
+      </a>
+
+      <a class="tool-card abc" href="abc-game/">
+        <span class="icon">ABC</span>
+        <h2>ABC Game</h2>
+        <p>Name items by letter and category to gently refocus your mind.</p>
+        <span class="open-label">Open tool →</span>
+      </a>
+    </section>
   </main>
 
   <script src="script.js"></script>
