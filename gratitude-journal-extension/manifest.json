@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Gratitude Journal",
+  "version": "1.0.0",
+  "description": "A simple gratitude journal for noting what you are grateful for.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Gratitude Journal"
+  },
+  "permissions": ["storage"]
+}
