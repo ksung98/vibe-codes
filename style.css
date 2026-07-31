@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, #eaf7ff 0%, #f8efff 50%, #fff7e8 100%);
+}
+
+.screen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.calm-card {
+  position: relative;
+  z-index: 2;
+  width: min(680px, calc(100vw - 44px));
+  margin: 32px auto 0;
+  padding: 22px 24px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 12px 30px rgba(91, 75, 138, 0.10);
+  backdrop-filter: blur(3px);
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 10px;
+  color: #3f386c;
+  font-size: clamp(24px, 4vw, 38px);
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6);
+}
+
+p {
+  margin: 0 0 18px;
+  color: #4f4968;
+  font-size: clamp(15px, 2vw, 19px);
+  line-height: 1.5;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6);
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 18px;
+  background: #7f77d9;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(127, 119, 217, 0.25);
+}
+
+button:hover {
+  background: #6c63c7;
+}
+
+#bubbleContainer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.7;
+  filter: blur(0.2px);
+  box-shadow: inset -8px -10px 18px rgba(255, 255, 255, 0.36),
+    inset 8px 10px 18px rgba(255, 255, 255, 0.25),
+    0 10px 24px rgba(97, 91, 140, 0.1);
+  animation-name: floatAround, breatheGlow, slowSpin;
+  animation-duration: var(--float-speed), var(--glow-speed), var(--spin-speed);
+  animation-timing-function: ease-in-out, ease-in-out, linear;
+  animation-iteration-count: infinite, infinite, infinite;
+  animation-direction: alternate, alternate, normal;
+}
+
+@keyframes floatAround {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(var(--move-x), var(--move-y)) scale(var(--scale));
+  }
+}
+
+@keyframes breatheGlow {
+  from {
+    opacity: 0.48;
+  }
+  to {
+    opacity: 0.86;
+  }
+}
+
+@keyframes slowSpin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
