@@ -6,3 +6,9 @@ toolCards.forEach((card) => {
     console.log(`Opening ${toolName}`);
   });
 });
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("home-button-sw.js").catch((error) => {
+    console.warn("Home button service worker could not be registered:", error);
+  });
+}
