@@ -11,7 +11,6 @@ const sampleAnswers = {
 };
 
 let index = 0;
-
 const el = {
   mode: document.getElementById('mode'),
   firstTurn: document.getElementById('firstTurn'),
@@ -32,24 +31,10 @@ const el = {
   reflectionBox: document.getElementById('reflectionBox')
 };
 
-function currentLetter() {
-  return alphabet[index] || 'Z';
-}
-
-function normalizedCategory() {
-  return el.category.value.trim().toLowerCase() || 'category';
-}
-
-function showStatus(message) {
-  el.statusBox.textContent = message;
-  el.statusBox.classList.add('show');
-}
-
-function hideStatus() {
-  el.statusBox.classList.remove('show');
-  el.statusBox.textContent = '';
-}
-
+function currentLetter() { return alphabet[index] || 'Z'; }
+function normalizedCategory() { return el.category.value.trim().toLowerCase() || 'category'; }
+function showStatus(message) { el.statusBox.textContent = message; el.statusBox.classList.add('show'); }
+function hideStatus() { el.statusBox.classList.remove('show'); el.statusBox.textContent = ''; }
 function addLogEntry(type, text) {
   const div = document.createElement('div');
   div.className = 'entry ' + type;
@@ -57,14 +42,12 @@ function addLogEntry(type, text) {
   div.innerHTML = '<small>' + who + '</small>' + text;
   el.log.prepend(div);
 }
-
 function getBuddyExample(letter) {
   const category = normalizedCategory();
   const match = sampleAnswers[category] && sampleAnswers[category][letter];
   if (match && match.length) return match[Math.floor(Math.random() * match.length)];
   return null;
 }
-
 function renderQuickCategories() {
   el.quickCategories.innerHTML = '';
   quickCategories.forEach(cat => {
@@ -72,27 +55,21 @@ function renderQuickCategories() {
     button.type = 'button';
     button.className = 'chip' + (normalizedCategory() === cat ? ' active' : '');
     button.textContent = cat;
-    button.addEventListener('click', () => {
-      el.category.value = cat;
-      resetGame();
-    });
+    button.addEventListener('click', () => { el.category.value = cat; resetGame(); });
     el.quickCategories.appendChild(button);
   });
 }
-
 function updateUI() {
   const letter = currentLetter();
   const category = normalizedCategory();
   el.currentLetter.textContent = letter;
   el.currentCategory.textContent = category;
   el.firstTurnField.style.display = el.mode.value === 'turns' ? 'block' : 'none';
-
   if (index >= alphabet.length) {
     el.buddyMessage.textContent = 'You made it from A to Z. Nice work staying with it.';
     showStatus('Completed! You practiced a full distraction-based coping skill from A to Z.');
     return;
   }
-
   if (el.mode.value === 'solo') {
     el.buddyMessage.textContent = 'Your turn: name something in ' + category + ' that starts with ' + letter + '.';
   } else {
@@ -101,7 +78,6 @@ function updateUI() {
     el.buddyMessage.textContent = userTurnNow ? 'Your turn for ' + letter + '. After you answer, the buddy will fill the next letter.' : 'Buddy goes first for ' + letter + '. Press submit to let the buddy fill this letter.';
   }
 }
-
 function supportivePrompt() {
   const letter = currentLetter();
   const category = normalizedCategory();
@@ -113,7 +89,6 @@ function supportivePrompt() {
   ];
   showStatus(prompts[Math.floor(Math.random() * prompts.length)]);
 }
-
 function resetGame() {
   index = 0;
   el.response.value = '';
@@ -122,19 +97,14 @@ function resetGame() {
   renderQuickCategories();
   updateUI();
 }
-
 function submitTurn() {
   if (index >= alphabet.length) return;
   const letter = currentLetter();
   const category = normalizedCategory();
   const answer = el.response.value.trim();
   hideStatus();
-
   if (el.mode.value === 'solo') {
-    if (!answer) {
-      showStatus('Enter one ' + category + ' item for ' + letter + ' to keep going.');
-      return;
-    }
+    if (!answer) { showStatus('Enter one ' + category + ' item for ' + letter + ' to keep going.'); return; }
     addLogEntry('user', '<strong>' + letter + '</strong> is for <strong>' + answer + '</strong>');
     index += 1;
     el.response.value = '';
@@ -142,22 +112,14 @@ function submitTurn() {
     if (index < alphabet.length) addLogEntry('buddy', 'Nice. Next letter: <strong>' + currentLetter() + '</strong>.');
     return;
   }
-
   const buddyStarts = el.firstTurn.value === 'buddy';
   const userTurnNow = buddyStarts ? index % 2 === 1 : index % 2 === 0;
-
   if (userTurnNow) {
-    if (!answer) {
-      showStatus('Enter one ' + category + ' item for ' + letter + ' to keep going.');
-      return;
-    }
+    if (!answer) { showStatus('Enter one ' + category + ' item for ' + letter + ' to keep going.'); return; }
     addLogEntry('user', '<strong>' + letter + '</strong> is for <strong>' + answer + '</strong>');
     index += 1;
     el.response.value = '';
-    if (index >= alphabet.length) {
-      updateUI();
-      return;
-    }
+    if (index >= alphabet.length) { updateUI(); return; }
     const buddyLetter = currentLetter();
     const buddyAnswer = getBuddyExample(buddyLetter) || '[your choice for ' + buddyLetter + ']';
     addLogEntry('buddy', '<strong>' + buddyLetter + '</strong> is for <strong>' + buddyAnswer + '</strong>');
@@ -165,7 +127,6 @@ function submitTurn() {
     updateUI();
     return;
   }
-
   const buddyLetter = currentLetter();
   const buddyAnswer = getBuddyExample(buddyLetter) || '[your choice for ' + buddyLetter + ']';
   addLogEntry('buddy', '<strong>' + buddyLetter + '</strong> is for <strong>' + buddyAnswer + '</strong>');
@@ -173,15 +134,11 @@ function submitTurn() {
   el.response.value = '';
   updateUI();
 }
-
 function generateReflection() {
   const text = el.checkIn.value.trim();
   const reflections = [];
-  if (!text) {
-    reflections.push('You do not have to have the perfect words. Even taking a minute to practice a simple coping skill can be a solid reset.');
-  } else {
-    reflections.push('It sounds like you may be feeling ' + text + '. Thank you for naming that.');
-  }
+  if (!text) reflections.push('You do not have to have the perfect words. Even taking a minute to practice a simple coping skill can be a solid reset.');
+  else reflections.push('It sounds like you may be feeling ' + text + '. Thank you for naming that.');
   reflections.push('Using a distraction-based coping skill can help create a little space between you and the intensity of the moment.');
   reflections.push('You only need to focus on one step at a time, not the whole day at once.');
   el.reflectionBox.textContent = reflections.join(' ');
@@ -195,12 +152,7 @@ el.reflectBtn.addEventListener('click', generateReflection);
 el.category.addEventListener('change', resetGame);
 el.mode.addEventListener('change', resetGame);
 el.firstTurn.addEventListener('change', resetGame);
-el.response.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    submitTurn();
-  }
-});
+el.response.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); submitTurn(); } });
 
 renderQuickCategories();
 updateUI();
