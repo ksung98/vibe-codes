@@ -12,7 +12,7 @@
     <header class="hero">
       <p class="eyebrow">Creative Play</p>
       <h1>Animal Dress-Up</h1>
-      <p>Choose an animal and create a fun outfit. Mix and match as many times as you like!</p>
+      <p>Choose a cuddly animal and mix and match cute clothes and accessories.</p>
     </header>
 
     <section class="layout">
@@ -25,47 +25,32 @@
           </div>
         </div>
 
-        <div class="control-group">
-          <h2>Hat</h2>
-          <div class="choice-row">
-            <button class="item active" data-category="hat" data-item="none" type="button">None</button>
-            <button class="item" data-category="hat" data-item="sun" type="button">Sun hat</button>
-            <button class="item" data-category="hat" data-item="party" type="button">Party hat</button>
-          </div>
-        </div>
+        <div class="control-group"><h2>Hat</h2><div class="choice-row">
+          <button class="item active" data-category="hat" data-item="none" type="button">None</button>
+          <button class="item" data-category="hat" data-item="sun" type="button">Sun hat</button>
+          <button class="item" data-category="hat" data-item="party" type="button">Party hat</button>
+        </div></div>
 
-        <div class="control-group">
-          <h2>Top</h2>
-          <div class="choice-row">
-            <button class="item active" data-category="top" data-item="none" type="button">None</button>
-            <button class="item" data-category="top" data-item="shirt" type="button">T-shirt</button>
-            <button class="item" data-category="top" data-item="scarf" type="button">Scarf</button>
-          </div>
-        </div>
+        <div class="control-group"><h2>Top</h2><div class="choice-row">
+          <button class="item active" data-category="top" data-item="none" type="button">None</button>
+          <button class="item" data-category="top" data-item="shirt" type="button">T-shirt</button>
+          <button class="item" data-category="top" data-item="scarf" type="button">Scarf</button>
+        </div></div>
 
-        <div class="control-group">
-          <h2>Bottom</h2>
-          <div class="choice-row">
-            <button class="item active" data-category="bottom" data-item="none" type="button">None</button>
-            <button class="item" data-category="bottom" data-item="shorts" type="button">Shorts</button>
-          </div>
-        </div>
+        <div class="control-group"><h2>Bottom</h2><div class="choice-row">
+          <button class="item active" data-category="bottom" data-item="none" type="button">None</button>
+          <button class="item" data-category="bottom" data-item="shorts" type="button">Shorts</button>
+        </div></div>
 
-        <div class="control-group">
-          <h2>Accessories</h2>
-          <div class="choice-row">
-            <button class="item active" data-category="accessory" data-item="none" type="button">None</button>
-            <button class="item" data-category="accessory" data-item="purse" type="button">Purse</button>
-          </div>
-        </div>
+        <div class="control-group"><h2>Accessories</h2><div class="choice-row">
+          <button class="item active" data-category="accessory" data-item="none" type="button">None</button>
+          <button class="item" data-category="accessory" data-item="purse" type="button">Purse</button>
+        </div></div>
 
-        <div class="control-group">
-          <h2>Shoes</h2>
-          <div class="choice-row">
-            <button class="item active" data-category="shoes" data-item="none" type="button">None</button>
-            <button class="item" data-category="shoes" data-item="sneakers" type="button">Sneakers</button>
-          </div>
-        </div>
+        <div class="control-group"><h2>Shoes</h2><div class="choice-row">
+          <button class="item active" data-category="shoes" data-item="none" type="button">None</button>
+          <button class="item" data-category="shoes" data-item="sneakers" type="button">Sneakers</button>
+        </div></div>
 
         <div class="actions">
           <button id="randomButton" type="button">Surprise me</button>
@@ -75,72 +60,70 @@
 
       <section class="stage-panel">
         <div class="stage" aria-live="polite">
-          <svg id="character" viewBox="0 0 500 620" role="img" aria-label="Dressed-up animal">
-            <ellipse cx="250" cy="565" rx="155" ry="28" fill="#d8cfc8" opacity=".55"/>
+          <svg id="character" viewBox="0 0 600 650" role="img" aria-label="Dressed-up animal">
+            <defs>
+              <linearGradient id="capyBody" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d99a58"/><stop offset="1" stop-color="#a96334"/></linearGradient>
+              <linearGradient id="capyFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5ad6c"/><stop offset="1" stop-color="#bb7440"/></linearGradient>
+              <linearGradient id="pandaWhite" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffef8"/><stop offset="1" stop-color="#dedbd2"/></linearGradient>
+              <linearGradient id="pandaBlack" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#403b38"/><stop offset="1" stop-color="#171514"/></linearGradient>
+              <filter id="softShadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#5a4030" flood-opacity=".22"/></filter>
+            </defs>
 
-            <g id="capybara" class="animal">
-              <ellipse cx="250" cy="340" rx="145" ry="185" fill="#c98b4a" stroke="#4b2b19" stroke-width="9"/>
-              <circle cx="250" cy="175" r="135" fill="#d79b58" stroke="#4b2b19" stroke-width="9"/>
-              <circle cx="155" cy="92" r="38" fill="#c98b4a" stroke="#4b2b19" stroke-width="9"/>
-              <circle cx="345" cy="92" r="38" fill="#c98b4a" stroke="#4b2b19" stroke-width="9"/>
-              <ellipse cx="198" cy="175" rx="11" ry="18" fill="#2f1a10"/>
-              <ellipse cx="302" cy="175" rx="11" ry="18" fill="#2f1a10"/>
-              <ellipse cx="250" cy="225" rx="35" ry="24" fill="#8f542f"/>
-              <path d="M220 250 Q250 278 280 250" fill="none" stroke="#3c2114" stroke-width="8" stroke-linecap="round"/>
-              <ellipse cx="132" cy="362" rx="31" ry="102" fill="#c98b4a" stroke="#4b2b19" stroke-width="8"/>
-              <ellipse cx="368" cy="362" rx="31" ry="102" fill="#c98b4a" stroke="#4b2b19" stroke-width="8"/>
-              <rect x="165" y="468" width="66" height="105" rx="28" fill="#a96839" stroke="#4b2b19" stroke-width="8"/>
-              <rect x="269" y="468" width="66" height="105" rx="28" fill="#a96839" stroke="#4b2b19" stroke-width="8"/>
-            </g>
+            <ellipse cx="300" cy="590" rx="150" ry="28" fill="#cfc4bc" opacity=".55"/>
 
-            <g id="panda" class="animal hidden">
-              <ellipse cx="250" cy="340" rx="145" ry="185" fill="#fffaf0" stroke="#302821" stroke-width="9"/>
-              <circle cx="250" cy="175" r="135" fill="#fffaf0" stroke="#302821" stroke-width="9"/>
-              <circle cx="155" cy="87" r="42" fill="#312b28" stroke="#302821" stroke-width="9"/>
-              <circle cx="345" cy="87" r="42" fill="#312b28" stroke="#302821" stroke-width="9"/>
-              <ellipse cx="198" cy="175" rx="39" ry="50" fill="#312b28" transform="rotate(18 198 175)"/>
-              <ellipse cx="302" cy="175" rx="39" ry="50" fill="#312b28" transform="rotate(-18 302 175)"/>
-              <circle cx="198" cy="176" r="10" fill="#fff"/>
-              <circle cx="302" cy="176" r="10" fill="#fff"/>
-              <ellipse cx="250" cy="225" rx="27" ry="20" fill="#312b28"/>
-              <path d="M220 250 Q250 278 280 250" fill="none" stroke="#312b28" stroke-width="8" stroke-linecap="round"/>
-              <ellipse cx="132" cy="362" rx="34" ry="105" fill="#312b28" stroke="#302821" stroke-width="8"/>
-              <ellipse cx="368" cy="362" rx="34" ry="105" fill="#312b28" stroke="#302821" stroke-width="8"/>
-              <rect x="165" y="468" width="66" height="105" rx="28" fill="#312b28" stroke="#302821" stroke-width="8"/>
-              <rect x="269" y="468" width="66" height="105" rx="28" fill="#312b28" stroke="#302821" stroke-width="8"/>
+            <g id="capybara" class="animal" filter="url(#softShadow)">
+              <ellipse cx="300" cy="380" rx="137" ry="176" fill="url(#capyBody)" stroke="#4a2b1b" stroke-width="9"/>
+              <ellipse cx="300" cy="210" rx="145" ry="132" fill="url(#capyFace)" stroke="#4a2b1b" stroke-width="9"/>
+              <ellipse cx="185" cy="112" rx="42" ry="35" fill="#bf7742" stroke="#4a2b1b" stroke-width="9" transform="rotate(-18 185 112)"/>
+              <ellipse cx="415" cy="112" rx="42" ry="35" fill="#bf7742" stroke="#4a2b1b" stroke-width="9" transform="rotate(18 415 112)"/>
+              <ellipse cx="213" cy="208" rx="13" ry="19" fill="#2d1c14"/>
+              <ellipse cx="387" cy="208" rx="13" ry="19" fill="#2d1c14"/>
+              <ellipse cx="300" cy="255" rx="54" ry="40" fill="#a86035" opacity=".9"/>
+              <ellipse cx="300" cy="245" rx="25" ry="17" fill="#3a2117"/>
+              <path d="M272 274 Q300 300 328 274" fill="none" stroke="#3a2117" stroke-width="8" stroke-linecap="round"/>
+              <ellipse cx="168" cy="386" rx="31" ry="98" fill="#b86f3c" stroke="#4a2b1b" stroke-width="8" transform="rotate(6 168 386)"/>
+              <ellipse cx="432" cy="386" rx="31" ry="98" fill="#b86f3c" stroke="#4a2b1b" stroke-width="8" transform="rotate(-6 432 386)"/>
+              <rect x="205" y="485" width="73" height="104" rx="31" fill="#9b592f" stroke="#4a2b1b" stroke-width="8"/>
+              <rect x="322" y="485" width="73" height="104" rx="31" fill="#9b592f" stroke="#4a2b1b" stroke-width="8"/>
+              <path d="M187 162 Q220 130 255 142" fill="none" stroke="#f3c48f" stroke-width="12" stroke-linecap="round" opacity=".5"/>
             </g>
 
-            <g id="hat-sun" class="wearable hidden">
-              <ellipse cx="250" cy="82" rx="145" ry="31" fill="#ffd66b" stroke="#6b4c1f" stroke-width="8"/>
-              <path d="M170 82 Q180 5 250 5 Q320 5 330 82Z" fill="#ffe28e" stroke="#6b4c1f" stroke-width="8"/>
-              <path d="M184 49 Q250 70 316 49" fill="none" stroke="#e67a8e" stroke-width="15"/>
+            <g id="panda" class="animal hidden" filter="url(#softShadow)">
+              <ellipse cx="300" cy="380" rx="135" ry="176" fill="url(#pandaWhite)" stroke="#292523" stroke-width="9"/>
+              <circle cx="205" cy="112" r="48" fill="url(#pandaBlack)" stroke="#292523" stroke-width="9"/>
+              <circle cx="395" cy="112" r="48" fill="url(#pandaBlack)" stroke="#292523" stroke-width="9"/>
+              <ellipse cx="300" cy="210" rx="143" ry="134" fill="url(#pandaWhite)" stroke="#292523" stroke-width="9"/>
+              <ellipse cx="230" cy="210" rx="44" ry="56" fill="url(#pandaBlack)" transform="rotate(19 230 210)"/>
+              <ellipse cx="370" cy="210" rx="44" ry="56" fill="url(#pandaBlack)" transform="rotate(-19 370 210)"/>
+              <circle cx="230" cy="211" r="11" fill="#fff"/><circle cx="370" cy="211" r="11" fill="#fff"/>
+              <circle cx="233" cy="214" r="6" fill="#171514"/><circle cx="367" cy="214" r="6" fill="#171514"/>
+              <ellipse cx="300" cy="258" rx="27" ry="20" fill="#24201e"/>
+              <path d="M272 280 Q300 304 328 280" fill="none" stroke="#24201e" stroke-width="8" stroke-linecap="round"/>
+              <ellipse cx="166" cy="386" rx="33" ry="102" fill="url(#pandaBlack)" stroke="#292523" stroke-width="8" transform="rotate(6 166 386)"/>
+              <ellipse cx="434" cy="386" rx="33" ry="102" fill="url(#pandaBlack)" stroke="#292523" stroke-width="8" transform="rotate(-6 434 386)"/>
+              <rect x="205" y="484" width="73" height="105" rx="31" fill="url(#pandaBlack)" stroke="#292523" stroke-width="8"/>
+              <rect x="322" y="484" width="73" height="105" rx="31" fill="url(#pandaBlack)" stroke="#292523" stroke-width="8"/>
+              <path d="M215 156 Q255 130 290 142" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" opacity=".62"/>
             </g>
-            <g id="hat-party" class="wearable hidden">
-              <path d="M185 91 L250 0 L315 91Z" fill="#9b82e6" stroke="#4b3d78" stroke-width="8"/>
-              <circle cx="250" cy="0" r="16" fill="#ffcf62"/>
-              <circle cx="225" cy="48" r="8" fill="#ff8fa3"/><circle cx="270" cy="60" r="8" fill="#76c7c0"/>
+
+            <g id="capybara-wearables" class="wearable-set">
+              <g data-category="hat" data-item="sun" class="wearable hidden"><ellipse cx="300" cy="102" rx="151" ry="28" fill="#f8d878" stroke="#6d4b20" stroke-width="8"/><path d="M210 100 Q225 28 300 28 Q375 28 390 100Z" fill="#ffe69b" stroke="#6d4b20" stroke-width="8"/><path d="M225 66 Q300 90 375 66" fill="none" stroke="#e77d91" stroke-width="15"/></g>
+              <g data-category="hat" data-item="party" class="wearable hidden"><path d="M230 116 L300 17 L370 116Z" fill="#9d83e8" stroke="#4b3d78" stroke-width="8"/><circle cx="300" cy="17" r="16" fill="#ffd468"/><circle cx="275" cy="69" r="9" fill="#ff91a5"/><circle cx="326" cy="82" r="9" fill="#77c9c3"/></g>
+              <g data-category="top" data-item="shirt" class="wearable hidden"><path d="M174 319 Q196 286 235 282 L300 311 L365 282 Q404 286 426 319 L398 463 Q300 495 202 463Z" fill="#78bfe9" stroke="#315b75" stroke-width="8"/><path d="M258 294 Q300 331 342 294" fill="none" stroke="#315b75" stroke-width="8"/></g>
+              <g data-category="top" data-item="scarf" class="wearable hidden"><path d="M175 304 Q300 365 425 304 L407 357 Q300 390 193 357Z" fill="#ef8093" stroke="#7f3948" stroke-width="8"/><path d="M350 348 L408 500 L350 480 L312 373Z" fill="#ef8093" stroke="#7f3948" stroke-width="8"/></g>
+              <g data-category="bottom" data-item="shorts" class="wearable hidden"><path d="M195 442 Q300 475 405 442 L392 542 L329 542 L300 491 L271 542 L208 542Z" fill="#7088cf" stroke="#34467d" stroke-width="8"/><circle cx="300" cy="463" r="7" fill="#fff"/></g>
+              <g data-category="accessory" data-item="purse" class="wearable hidden"><path d="M376 315 Q449 345 457 474" fill="none" stroke="#784b84" stroke-width="12"/><rect x="389" y="443" width="111" height="91" rx="22" fill="#c78bd4" stroke="#6b3c77" stroke-width="8"/><circle cx="445" cy="480" r="8" fill="#ffe17a"/></g>
+              <g data-category="shoes" data-item="sneakers" class="wearable hidden"><path d="M184 548 Q229 528 283 556 L278 597 L171 597 Q148 572 184 548Z" fill="#fafaff" stroke="#4d4e70" stroke-width="8"/><path d="M416 548 Q371 528 317 556 L322 597 L429 597 Q452 572 416 548Z" fill="#fafaff" stroke="#4d4e70" stroke-width="8"/><path d="M196 563 L267 581 M404 563 L333 581" stroke="#78bfe9" stroke-width="7"/></g>
             </g>
-            <g id="top-shirt" class="wearable hidden">
-              <path d="M147 280 Q165 250 195 245 L250 275 L305 245 Q335 250 353 280 L330 420 Q250 450 170 420Z" fill="#79bde8" stroke="#315a74" stroke-width="8"/>
-              <path d="M220 255 Q250 290 280 255" fill="none" stroke="#315a74" stroke-width="8"/>
-            </g>
-            <g id="top-scarf" class="wearable hidden">
-              <path d="M150 265 Q250 320 350 265 L335 320 Q250 350 165 320Z" fill="#ef7f91" stroke="#7f3946" stroke-width="8"/>
-              <path d="M300 305 L350 430 L300 410 L270 325Z" fill="#ef7f91" stroke="#7f3946" stroke-width="8"/>
-            </g>
-            <g id="bottom-shorts" class="wearable hidden">
-              <path d="M155 410 Q250 440 345 410 L335 505 L270 505 L250 455 L230 505 L165 505Z" fill="#6e87cf" stroke="#34467d" stroke-width="8"/>
-              <circle cx="250" cy="431" r="6" fill="#fff"/>
-            </g>
-            <g id="accessory-purse" class="wearable hidden">
-              <path d="M315 280 Q390 300 395 410" fill="none" stroke="#7b4c86" stroke-width="12"/>
-              <rect x="330" y="380" width="100" height="88" rx="20" fill="#c78bd4" stroke="#6b3c77" stroke-width="8"/>
-              <circle cx="380" cy="412" r="8" fill="#ffe17a"/>
-            </g>
-            <g id="shoes-sneakers" class="wearable hidden">
-              <path d="M145 545 Q190 525 238 552 L232 585 L138 585 Q120 565 145 545Z" fill="#f7f7ff" stroke="#4d4d72" stroke-width="8"/>
-              <path d="M355 545 Q310 525 262 552 L268 585 L362 585 Q380 565 355 545Z" fill="#f7f7ff" stroke="#4d4d72" stroke-width="8"/>
-              <path d="M153 556 L215 570 M347 556 L285 570" stroke="#79bde8" stroke-width="7"/>
+
+            <g id="panda-wearables" class="wearable-set hidden">
+              <g data-category="hat" data-item="sun" class="wearable hidden"><ellipse cx="300" cy="98" rx="137" ry="26" fill="#f8d878" stroke="#6d4b20" stroke-width="8"/><path d="M221 97 Q235 32 300 32 Q365 32 379 97Z" fill="#ffe69b" stroke="#6d4b20" stroke-width="8"/><path d="M235 65 Q300 87 365 65" fill="none" stroke="#e77d91" stroke-width="14"/></g>
+              <g data-category="hat" data-item="party" class="wearable hidden"><path d="M239 111 L300 19 L361 111Z" fill="#9d83e8" stroke="#4b3d78" stroke-width="8"/><circle cx="300" cy="18" r="15" fill="#ffd468"/><circle cx="278" cy="65" r="8" fill="#ff91a5"/><circle cx="324" cy="78" r="8" fill="#77c9c3"/></g>
+              <g data-category="top" data-item="shirt" class="wearable hidden"><path d="M190 321 Q210 292 245 287 L300 313 L355 287 Q390 292 410 321 L387 456 Q300 484 213 456Z" fill="#78bfe9" stroke="#315b75" stroke-width="8"/><path d="M266 298 Q300 329 334 298" fill="none" stroke="#315b75" stroke-width="8"/></g>
+              <g data-category="top" data-item="scarf" class="wearable hidden"><path d="M190 307 Q300 360 410 307 L394 354 Q300 383 206 354Z" fill="#ef8093" stroke="#7f3948" stroke-width="8"/><path d="M344 346 L393 486 L342 469 L311 369Z" fill="#ef8093" stroke="#7f3948" stroke-width="8"/></g>
+              <g data-category="bottom" data-item="shorts" class="wearable hidden"><path d="M211 440 Q300 466 389 440 L380 535 L326 535 L300 491 L274 535 L220 535Z" fill="#7088cf" stroke="#34467d" stroke-width="8"/><circle cx="300" cy="458" r="7" fill="#fff"/></g>
+              <g data-category="accessory" data-item="purse" class="wearable hidden"><path d="M367 318 Q427 350 435 466" fill="none" stroke="#784b84" stroke-width="12"/><rect x="369" y="438" width="108" height="89" rx="22" fill="#c78bd4" stroke="#6b3c77" stroke-width="8"/><circle cx="423" cy="474" r="8" fill="#ffe17a"/></g>
+              <g data-category="shoes" data-item="sneakers" class="wearable hidden"><path d="M200 546 Q238 529 284 554 L282 594 L188 594 Q167 570 200 546Z" fill="#fafaff" stroke="#4d4e70" stroke-width="8"/><path d="M400 546 Q362 529 316 554 L318 594 L412 594 Q433 570 400 546Z" fill="#fafaff" stroke="#4d4e70" stroke-width="8"/><path d="M211 561 L271 577 M389 561 L329 577" stroke="#78bfe9" stroke-width="7"/></g>
             </g>
           </svg>
         </div>
