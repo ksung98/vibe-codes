@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Coping Bubbles",
+  "version": "1.1.0",
+  "description": "A calming coping skill with colorful bubbles floating around the browser window.",
+  "action": {
+    "default_title": "Open Coping Bubbles"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": []
+}
