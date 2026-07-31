@@ -3,57 +3,106 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ABC Coping Game</title>
+  <title>Coping Skill Buddy - ABC Game</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="app">
     <section class="hero">
-      <p class="eyebrow">Coping Skill Buddy</p>
-      <h1>ABC Coping Game</h1>
-      <p class="intro">Pick a category, start with A, and name one thing for each letter. Go slowly, breathe, and let your mind settle into the game.</p>
+      <h1>Coping Skill Buddy</h1>
+      <p>A supportive practice tool for the ABC Game. Choose a category, follow the prompts, and focus on one small step at a time.</p>
     </section>
 
-    <section class="controls" aria-label="Game controls">
-      <div class="mode-row">
-        <button class="mode-button active" data-mode="solo" type="button">Solo</button>
-        <button class="mode-button" data-mode="turns" type="button">Take turns</button>
+    <section class="grid">
+      <div class="card">
+        <h2>ABC Game</h2>
+        <p class="subtle">Move from A to Z by naming something in a category for each letter.</p>
+
+        <div class="field">
+          <label>Choose a coping skill</label>
+          <div class="tab-row" aria-label="Coping skill tabs">
+            <button class="tab-button active" type="button">ABC Game</button>
+          </div>
+        </div>
+
+        <div class="row" id="abcControls">
+          <div class="field" id="modeField">
+            <label for="mode">Play mode</label>
+            <select id="mode">
+              <option value="turns">Take turns with buddy</option>
+              <option value="solo">Solo practice</option>
+            </select>
+          </div>
+          <div class="field" id="firstTurnField">
+            <label for="firstTurn">Who goes first?</label>
+            <select id="firstTurn">
+              <option value="client">Client goes first</option>
+              <option value="buddy">Buddy goes first</option>
+            </select>
+          </div>
+          <div class="field" id="categoryField">
+            <label for="category">Category</label>
+            <input id="category" type="text" value="animals" placeholder="Examples: animals, foods, places" />
+          </div>
+        </div>
+
+        <div class="field" id="quickCategoryField">
+          <label>Quick categories</label>
+          <div class="chips" id="quickCategories"></div>
+        </div>
+
+        <div class="helper" id="gameInstructions">
+          <strong>How it works:</strong>
+          In the ABC Game, move from A to Z by naming something in a category for each letter. In Take Turns with Buddy mode, one side does one letter and the other side does the next. In solo mode, the buddy guides the next prompt and tracks progress.
+        </div>
+
+        <div class="game-panel" id="gamePanel">
+          <div class="letter-box" id="abcPanel">
+            <div class="letter" id="currentLetter">A</div>
+            <div>
+              <div><strong>Current category:</strong> <span id="currentCategory">animals</span></div>
+              <div class="subtle" style="margin:6px 0 0;">Try naming something that starts with this letter.</div>
+            </div>
+          </div>
+
+          <div class="buddy-box" id="standardBuddyBox">
+            <strong>Buddy says</strong>
+            <div id="buddyMessage">Welcome in. Start us off: A is for…</div>
+          </div>
+
+          <div class="field" id="abcResponseField">
+            <label for="response">Your response</label>
+            <input id="response" type="text" placeholder="Type an item for the current letter" />
+          </div>
+
+          <div class="actions">
+            <button class="primary" id="submitBtn">Submit turn</button>
+            <button class="secondary" id="hintBtn">Need a gentle prompt</button>
+            <button class="secondary" id="resetBtn">Start over</button>
+          </div>
+
+          <div class="status" id="statusBox"></div>
+          <div class="log" id="log"></div>
+        </div>
       </div>
 
-      <label for="categoryInput">Category</label>
-      <div class="category-buttons" aria-label="Quick category buttons">
-        <button type="button" data-category="Animals">Animals</button>
-        <button type="button" data-category="Foods">Foods</button>
-        <button type="button" data-category="Places">Places</button>
-        <button type="button" data-category="Coping skills">Coping skills</button>
-      </div>
-      <input id="categoryInput" type="text" value="Animals" />
-    </section>
+      <div class="card">
+        <h2>Supportive add-ons</h2>
+        <p class="subtle">A coping skill buddy can do more than run a game. These lightweight prompts can make the experience feel more grounding.</p>
 
-    <section class="game-card" aria-label="Current letter challenge">
-      <div class="letter" id="currentLetter">A</div>
-      <p id="promptText">Name an animal that starts with A.</p>
-      <textarea id="answerInput" rows="3" placeholder="Type your answer here..."></textarea>
-      <div class="actions">
-        <button id="saveButton" type="button">Save answer</button>
-        <button id="skipButton" class="secondary" type="button">Skip letter</button>
-      </div>
-      <p id="encouragement" class="encouragement" aria-live="polite">You can take your time.</p>
-    </section>
+        <div class="field">
+          <label for="checkIn">Optional check-in</label>
+          <textarea id="checkIn" placeholder="How are you feeling right now? Example: anxious, restless, overwhelmed."></textarea>
+        </div>
 
-    <section class="reflection" aria-label="Reflection panel">
-      <h2>Reflection</h2>
-      <label for="reflectionInput">How do you feel after playing?</label>
-      <textarea id="reflectionInput" rows="3" placeholder="Example: calmer, focused, a little more relaxed..."></textarea>
-      <button id="saveReflectionButton" type="button">Save reflection</button>
-    </section>
+        <div class="actions">
+          <button class="primary" id="reflectBtn">Generate supportive reflection</button>
+        </div>
 
-    <section class="progress" aria-label="Progress log">
-      <div class="progress-header">
-        <h2>Progress log</h2>
-        <button id="clearButton" class="secondary" type="button">Clear</button>
+        <div class="status" id="reflectionBox"></div>
+
+        <p class="footer-note">Suggested future features: a larger coping-skill library, mood-based recommendations, clinician-configurable prompts, progress tracking, and printable coping cards.</p>
       </div>
-      <div id="progressList" class="progress-list"></div>
     </section>
   </main>
 
