@@ -1,7 +1,7 @@
 const animalButtons = [...document.querySelectorAll('[data-animal]')];
 const itemButtons = [...document.querySelectorAll('.item')];
 const animals = [...document.querySelectorAll('.animal')];
-const wearables = [...document.querySelectorAll('.wearable')];
+const wearableSets = [...document.querySelectorAll('.wearable-set')];
 const randomButton = document.getElementById('randomButton');
 const resetButton = document.getElementById('resetButton');
 const outfitMessage = document.getElementById('outfitMessage');
@@ -10,16 +10,29 @@ let selectedAnimal = 'capybara';
 const outfit = { hat: 'none', top: 'none', bottom: 'none', accessory: 'none', shoes: 'none' };
 
 function labelFor(value) {
-  return value === 'sun' ? 'sun hat' : value === 'party' ? 'party hat' : value === 'shirt' ? 'T-shirt' : value;
+  const labels = {
+    sun: 'a sun hat',
+    party: 'a party hat',
+    shirt: 'a T-shirt',
+    scarf: 'a scarf',
+    shorts: 'shorts',
+    purse: 'a purse',
+    sneakers: 'sneakers'
+  };
+  return labels[value] || value;
 }
 
 function render() {
   animals.forEach(animal => animal.classList.toggle('hidden', animal.id !== selectedAnimal));
   animalButtons.forEach(button => button.classList.toggle('active', button.dataset.animal === selectedAnimal));
 
-  wearables.forEach(wearable => wearable.classList.add('hidden'));
-  Object.entries(outfit).forEach(([category, item]) => {
-    if (item !== 'none') document.getElementById(`${category}-${item}`)?.classList.remove('hidden');
+  wearableSets.forEach(set => {
+    const isSelectedSet = set.id === `${selectedAnimal}-wearables`;
+    set.classList.toggle('hidden', !isSelectedSet);
+    [...set.querySelectorAll('.wearable')].forEach(wearable => {
+      const chosen = outfit[wearable.dataset.category] === wearable.dataset.item;
+      wearable.classList.toggle('hidden', !isSelectedSet || !chosen);
+    });
   });
 
   itemButtons.forEach(button => {
