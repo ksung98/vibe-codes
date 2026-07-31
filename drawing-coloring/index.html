@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drawing and Coloring Calm Space</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="home-link" href="../" aria-label="Back to home page">← Home</a>
+
+  <main class="app">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Creative Coping Tool</p>
+        <h1>Drawing and Coloring Calm Space</h1>
+        <p>Draw freely, erase, save your picture, or choose a coloring page and fill it in at your own pace.</p>
+      </div>
+      <button id="saveButton" class="save-button" type="button">Save image</button>
+    </section>
+
+    <section class="workspace" aria-label="Drawing workspace">
+      <aside class="toolbar" aria-label="Drawing tools">
+        <div class="tool-group">
+          <label for="pageSelect">Coloring page</label>
+          <select id="pageSelect">
+            <option value="blank">Blank drawing page</option>
+            <option value="flower">Flower garden</option>
+            <option value="butterfly">Butterfly</option>
+            <option value="mandala">Simple mandala</option>
+            <option value="ocean">Ocean scene</option>
+            <option value="house">Cozy house</option>
+          </select>
+          <p class="hint">Choosing a page will clear the canvas and load new outlines.</p>
+        </div>
+
+        <div class="tool-group">
+          <label for="colorPicker">Color</label>
+          <input id="colorPicker" type="color" value="#7f77d9" />
+        </div>
+
+        <div class="tool-group">
+          <label for="brushSize">Brush size: <span id="brushSizeLabel">12</span></label>
+          <input id="brushSize" type="range" min="2" max="60" value="12" />
+        </div>
+
+        <div class="tool-buttons" role="group" aria-label="Brush mode">
+          <button id="brushButton" class="active" type="button">Brush</button>
+          <button id="eraserButton" type="button">Eraser</button>
+        </div>
+
+        <div class="tool-buttons" role="group" aria-label="Canvas actions">
+          <button id="undoButton" type="button">Undo</button>
+          <button id="clearButton" type="button">Clear</button>
+        </div>
+
+        <div class="tool-group calm-note">
+          <strong>Gentle prompt</strong>
+          <p id="promptText">Try drawing one slow line while taking one slow breath.</p>
+          <button id="promptButton" class="secondary-full" type="button">New prompt</button>
+        </div>
+      </aside>
+
+      <section class="canvas-panel">
+        <div class="canvas-header">
+          <div>
+            <h2 id="canvasTitle">Blank drawing page</h2>
+            <p id="canvasHelp">Use your mouse, trackpad, or finger to draw.</p>
+          </div>
+          <div class="mode-pill" id="modePill">Brush mode</div>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="drawingCanvas" width="1200" height="760" aria-label="Drawing canvas"></canvas>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
