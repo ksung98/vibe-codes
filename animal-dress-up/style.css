@@ -118,8 +118,34 @@ button.active {
   display: none;
   overflow: visible;
   pointer-events: none;
+  transform-origin: 50% 50%;
 }
 .wearable-layer.show { display: block; }
+
+/* Panda-specific fitting. Each item is independently sized and placed
+   to follow the illustrated panda's head, torso, hips, backpack area, and feet. */
+.wearable-layer[data-animal="panda"][data-category="hat"][data-item="sun"] {
+  transform: translate(0, 23px) scale(0.73);
+}
+.wearable-layer[data-animal="panda"][data-category="hat"][data-item="party"] {
+  transform: translate(0, 25px) scale(0.70);
+}
+.wearable-layer[data-animal="panda"][data-category="top"][data-item="shirt"] {
+  transform: translate(0, 36px) scale(0.70);
+}
+.wearable-layer[data-animal="panda"][data-category="top"][data-item="scarf"] {
+  transform: translate(0, 28px) scale(0.72);
+}
+.wearable-layer[data-animal="panda"][data-category="bottom"][data-item="shorts"] {
+  transform: translate(0, 18px) scale(0.72);
+}
+.wearable-layer[data-animal="panda"][data-category="accessory"][data-item="purse"] {
+  transform: translate(64px, 28px) scale(0.60);
+}
+.wearable-layer[data-animal="panda"][data-category="shoes"][data-item="sneakers"] {
+  transform: translate(0, -2px) scale(0.69);
+}
+
 #outfitMessage {
   margin: 16px 0 0;
   text-align: center;
