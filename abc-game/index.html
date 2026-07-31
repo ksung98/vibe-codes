@@ -3,70 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coping Skill Buddy - ABC Game</title>
+  <title>ABC Game</title>
   <link rel="stylesheet" href="style.css" />
-
-  <style>
-    .home-link {
-      position: fixed;
-      top: 16px;
-      left: 16px;
-      z-index: 9999;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      color: #1f2937;
-      text-decoration: none;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 0.92rem;
-      font-weight: 700;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.14);
-      border: 1px solid rgba(15, 23, 42, 0.1);
-      backdrop-filter: blur(8px);
-    }
-    .home-link:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
-    }
-    @media (max-width: 600px) {
-      .home-link {
-        top: 10px;
-        left: 10px;
-        padding: 8px 11px;
-        font-size: 0.84rem;
-      }
-    }
-  </style>
 </head>
 <body>
   <a class="home-link" href="../" aria-label="Back to home page">← Home</a>
 
   <main class="app">
-    <section class="hero">
-      <h1>Coping Skill Buddy</h1>
-      <p>A supportive practice tool for distraction-based coping skills. Play the ABC Game with a calm, structured buddy.</p>
+    <section class="header">
+      <p class="eyebrow">Distraction-based coping skill</p>
+      <h1>ABC Game</h1>
+      <p>Name items by letter and category to gently refocus your mind, one letter at a time.</p>
     </section>
 
     <section class="grid">
-      <div class="card">
-        <h2>Coping Skill Games</h2>
-        <p class="subtle">Choose a game, follow the prompts, and focus on one small step at a time.</p>
-
-        <div class="field">
-          <label>Choose a coping skill</label>
-          <div class="tab-row" id="gameTabs">
-            <button class="tab-button active" type="button">ABC Game</button>
+      <section class="panel" aria-labelledby="gameTitle">
+        <div class="panel-heading">
+          <div>
+            <h2 id="gameTitle">Play the ABC Game</h2>
+            <p>Move from A to Z by naming something in your chosen category for each letter.</p>
           </div>
+          <div class="letter" id="currentLetter">A</div>
         </div>
 
-        <div class="row" id="abcControls">
+        <div class="controls" id="abcControls">
           <div class="field" id="modeField">
             <label for="mode">Play mode</label>
             <select id="mode">
-              <option value="turns">Take turns with buddy</option>
+              <option value="turns">Take turns</option>
               <option value="solo">Solo practice</option>
             </select>
           </div>
@@ -74,7 +38,7 @@
             <label for="firstTurn">Who goes first?</label>
             <select id="firstTurn">
               <option value="client">Client goes first</option>
-              <option value="buddy">Buddy goes first</option>
+              <option value="buddy">Guide goes first</option>
             </select>
           </div>
           <div class="field" id="categoryField">
@@ -89,21 +53,19 @@
         </div>
 
         <div class="helper" id="gameInstructions">
-          <strong>How it works:</strong>
-          In the ABC Game, move from A to Z by naming something in a category for each letter. In Take Turns with Buddy mode, one side does one letter and the other side does the next. In solo mode, the buddy guides the next prompt and tracks progress.
+          <strong>How it works:</strong> In the ABC Game, move from A to Z by naming something in a category for each letter. You can play solo or take turns with the guide.
         </div>
 
         <div class="game-panel" id="gamePanel">
           <div class="letter-box" id="abcPanel">
-            <div class="letter" id="currentLetter">A</div>
             <div>
-              <div><strong>Current category:</strong> <span id="currentCategory">animals</span></div>
-              <div class="subtle" style="margin:6px 0 0;">Try naming something that starts with this letter.</div>
+              <strong>Current category:</strong> <span id="currentCategory">animals</span>
+              <p>Try naming something that starts with this letter.</p>
             </div>
           </div>
 
-          <div class="buddy-box" id="standardBuddyBox">
-            <strong>Buddy says</strong>
+          <div class="guide-box" id="standardBuddyBox">
+            <strong>Guide</strong>
             <div id="buddyMessage">Welcome in. Start us off: A is for…</div>
           </div>
 
@@ -121,25 +83,20 @@
           <div class="status" id="statusBox"></div>
           <div class="log" id="log"></div>
         </div>
-      </div>
+      </section>
 
-      <div class="card">
-        <h2>Supportive add-ons</h2>
-        <p class="subtle">A coping skill buddy can do more than run a game. These lightweight prompts can make the experience feel more grounding.</p>
-
+      <section class="panel side-panel" aria-labelledby="reflectionTitle">
+        <h2 id="reflectionTitle">Optional check-in</h2>
+        <p>Pause for a moment before or after playing. You can name what you are feeling, then return to the game.</p>
         <div class="field">
-          <label for="checkIn">Optional check-in</label>
-          <textarea id="checkIn" placeholder="How are you feeling right now? Example: anxious, restless, overwhelmed."></textarea>
+          <label for="checkIn">How are you feeling right now?</label>
+          <textarea id="checkIn" placeholder="Example: anxious, restless, overwhelmed."></textarea>
         </div>
-
         <div class="actions">
           <button class="primary" id="reflectBtn">Generate supportive reflection</button>
         </div>
-
         <div class="status" id="reflectionBox"></div>
-
-        <p class="footer-note">Suggested future features: a larger coping-skill library, mood-based recommendations, clinician-configurable prompts, progress tracking, and printable coping cards.</p>
-      </div>
+      </section>
     </section>
   </main>
 
