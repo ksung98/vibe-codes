@@ -1,89 +1,287 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Animal Dress-Up</title>
-  <link rel="stylesheet" href="style.css?v=10" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Panda Dress-Up</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      padding: 0 0 36px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #352f48;
+      background: linear-gradient(160deg, #fff8ec 0%, #f5efff 50%, #eaf7ff 100%);
+    }
+    .home {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 10;
+      display: inline-flex;
+      padding: 10px 14px;
+      border: 1px solid rgba(91,75,138,.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,.94);
+      color: #4b3d78;
+      text-decoration: none;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(91,75,138,.14);
+    }
+    .app {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding-top: 78px;
+    }
+    .hero, .controls, .stage {
+      border: 1px solid rgba(136,115,201,.16);
+      background: rgba(255,255,255,.82);
+      box-shadow: 0 14px 32px rgba(91,75,138,.12);
+    }
+    .hero {
+      margin-bottom: 20px;
+      padding: 24px;
+      border-radius: 28px;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #8873c9;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    h1, h2, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 10px;
+      color: #4b3d78;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.05;
+    }
+    .hero p:last-child {
+      max-width: 780px;
+      margin-bottom: 0;
+      color: #5c5672;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+    .workspace {
+      display: grid;
+      grid-template-columns: 330px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+    .controls, .stage { border-radius: 28px; }
+    .controls {
+      display: grid;
+      gap: 14px;
+      padding: 20px;
+    }
+    .controls h2 {
+      margin-bottom: 0;
+      color: #4b3d78;
+      font-size: 23px;
+    }
+    .instructions {
+      margin-bottom: 4px;
+      color: #6a637c;
+      line-height: 1.45;
+    }
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 18px;
+      padding: 15px 16px;
+      background: #eee8ff;
+      color: #4b3d78;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 120ms ease, background 150ms ease, box-shadow 150ms ease;
+    }
+    button:hover { background: #e1d8ff; }
+    button:active { transform: scale(.98); }
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      font-size: 17px;
+    }
+    .item::after {
+      content: "Add";
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.7);
+      font-size: 12px;
+    }
+    .item[aria-pressed="true"] {
+      background: #8873c9;
+      color: white;
+      box-shadow: 0 8px 18px rgba(136,115,201,.28);
+    }
+    .item[aria-pressed="true"]::after {
+      content: "On";
+      color: #4b3d78;
+    }
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 5px;
+    }
+    #surprise { background: #f7cf68; color: #5f4719; }
+    #surprise:hover { background: #f2c44c; }
+    .secondary { background: #e7f4ee; color: #47735d; }
+    .stage { padding: 20px; }
+    .frame {
+      display: grid;
+      place-items: center;
+      min-height: 650px;
+      overflow: hidden;
+      border: 2px solid rgba(136,115,201,.18);
+      border-radius: 25px;
+      background: linear-gradient(180deg, #fffdf8, #f8f3ec);
+    }
+    #panda {
+      display: block;
+      width: 100%;
+      height: 650px;
+      object-fit: contain;
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 110ms ease, transform 110ms ease;
+    }
+    #panda.changing { opacity: .2; transform: scale(.985); }
+    #message {
+      margin: 16px 0 0;
+      text-align: center;
+      color: #5f5975;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    @media (max-width: 880px) {
+      .workspace { grid-template-columns: 1fr; }
+      .controls { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .controls h2, .instructions, .actions { grid-column: 1 / -1; }
+    }
+    @media (max-width: 620px) {
+      .app { width: min(100vw - 18px, 1180px); padding-top: 72px; }
+      .home { top: 10px; left: 10px; padding: 8px 11px; font-size: .84rem; }
+      .hero, .controls, .stage, .frame { border-radius: 20px; }
+      .controls { grid-template-columns: 1fr; }
+      .controls h2, .instructions, .actions { grid-column: auto; }
+      .frame { min-height: 470px; }
+      #panda { height: 470px; }
+    }
+  </style>
 </head>
 <body>
-  <a class="home-link" href="../">← Home</a>
+  <a class="home" href="../">← Home</a>
+
   <main class="app">
     <header class="hero">
       <p class="eyebrow">Creative Play</p>
-      <h1>Animal Dress-Up</h1>
-      <p>Choose a cuddly animal and mix and match cute clothes and accessories.</p>
+      <h1>Panda Dress-Up</h1>
+      <p>Choose a hat, backpack, and shoes. Every combination displays a complete illustrated panda so each item fits naturally.</p>
     </header>
 
-    <section class="layout">
-      <aside class="controls" aria-label="Dress-up controls">
-        <div class="control-group">
-          <h2>Choose an animal</h2>
-          <div class="choice-row animal-choices">
-            <button class="choice active" data-animal="capybara" type="button">Capybara</button>
-            <button class="choice" data-animal="panda" type="button">Panda</button>
-          </div>
-        </div>
+    <section class="workspace">
+      <aside class="controls" aria-label="Panda dress-up controls">
+        <h2>Dress the panda</h2>
+        <p class="instructions">Tap an item to put it on. Tap it again to take it off.</p>
 
-        <div class="control-group"><h2>Hat</h2><div class="choice-row">
-          <button class="item active" data-category="hat" data-item="none" type="button">None</button>
-          <button class="item" data-category="hat" data-item="sun" type="button">Sun hat</button>
-          <button class="item" data-category="hat" data-item="party" type="button">Party hat</button>
-        </div></div>
-
-        <div class="control-group"><h2>Top</h2><div class="choice-row">
-          <button class="item active" data-category="top" data-item="none" type="button">None</button>
-          <button class="item" data-category="top" data-item="shirt" type="button">T-shirt</button>
-          <button class="item" data-category="top" data-item="scarf" type="button">Scarf</button>
-        </div></div>
-
-        <div class="control-group"><h2>Bottom</h2><div class="choice-row">
-          <button class="item active" data-category="bottom" data-item="none" type="button">None</button>
-          <button class="item" data-category="bottom" data-item="shorts" type="button">Shorts</button>
-        </div></div>
-
-        <div class="control-group"><h2>Accessories</h2><div class="choice-row">
-          <button class="item active" data-category="accessory" data-item="none" type="button">None</button>
-          <button class="item" data-category="accessory" data-item="purse" type="button">Purse</button>
-        </div></div>
-
-        <div class="control-group"><h2>Shoes</h2><div class="choice-row">
-          <button class="item active" data-category="shoes" data-item="none" type="button">None</button>
-          <button class="item" data-category="shoes" data-item="sneakers" type="button">Sneakers</button>
-        </div></div>
+        <button class="item" data-item="hat" aria-pressed="false" type="button"><span>🧢 Hat</span></button>
+        <button class="item" data-item="backpack" aria-pressed="false" type="button"><span>🎒 Backpack</span></button>
+        <button class="item" data-item="shoes" aria-pressed="false" type="button"><span>👟 Shoes</span></button>
 
         <div class="actions">
-          <button id="randomButton" type="button">Surprise me</button>
-          <button id="resetButton" type="button">Reset outfit</button>
+          <button id="surprise" type="button">Surprise me</button>
+          <button id="reset" class="secondary" type="button">Take everything off</button>
         </div>
       </aside>
 
-      <section class="stage-panel">
-        <div class="stage-shell">
-          <div id="dressUpStage" class="dress-up-stage animal-capybara" aria-live="polite">
-            <img id="animalBase" alt="Dress-up animal" />
-
-            <svg class="wearable-layer" data-animal="capybara" data-category="hat" data-item="sun" viewBox="0 0 520 520"><ellipse cx="260" cy="88" rx="122" ry="22" fill="#ffdf7a" stroke="#6c4d1e" stroke-width="8"/><path d="M185 87 Q197 25 260 25 Q323 25 335 87Z" fill="#ffe9a6" stroke="#6c4d1e" stroke-width="8"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="hat" data-item="party" viewBox="0 0 520 520"><path d="M212 102 L260 22 L308 102Z" fill="#9a82e8" stroke="#4b3d78" stroke-width="8"/><circle cx="260" cy="18" r="14" fill="#ffd767"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="top" data-item="shirt" viewBox="0 0 520 520"><path d="M150 222 Q176 194 213 192 L260 216 L307 192 Q344 194 370 222 L346 362 Q261 395 174 362Z" fill="#7fc3ed" stroke="#315973" stroke-width="8"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="top" data-item="scarf" viewBox="0 0 520 520"><path d="M155 214 Q260 264 365 214 L350 262 Q260 294 170 262Z" fill="#ef7f91" stroke="#7f3946" stroke-width="8"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="bottom" data-item="shorts" viewBox="0 0 520 520"><path d="M166 335 Q260 367 354 335 L344 430 L286 430 L260 384 L234 430 L176 430Z" fill="#6f88cf" stroke="#34467d" stroke-width="8"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="accessory" data-item="purse" viewBox="0 0 520 520"><path d="M312 213 Q376 242 384 360" fill="none" stroke="#7b4c86" stroke-width="12"/><rect x="319" y="336" width="92" height="82" rx="18" fill="#c78bd4" stroke="#6b3c77" stroke-width="8"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="shoes" data-item="sneakers" viewBox="0 0 520 520"><path d="M163 434 Q198 422 235 445 L235 470 L150 470 Q133 453 163 434Z" fill="#f8f9ff" stroke="#505172" stroke-width="8"/><path d="M357 434 Q322 422 285 445 L285 470 L370 470 Q387 453 357 434Z" fill="#f8f9ff" stroke="#505172" stroke-width="8"/></svg>
-
-            <svg class="wearable-layer" data-animal="panda" data-category="hat" data-item="sun" viewBox="0 0 520 520"></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="hat" data-item="party" viewBox="0 0 520 520"></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="top" data-item="shirt" viewBox="0 0 520 520"></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="top" data-item="scarf" viewBox="0 0 520 520"></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="bottom" data-item="shorts" viewBox="0 0 520 520"></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="accessory" data-item="purse" viewBox="0 0 520 520"></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="shoes" data-item="sneakers" viewBox="0 0 520 520"></svg>
-          </div>
+      <section class="stage" aria-live="polite">
+        <div class="frame">
+          <img id="panda" alt="Panda without dress-up items">
         </div>
-        <p id="outfitMessage">Your capybara is ready to dress up!</p>
+        <p id="message">The panda is ready to dress up!</p>
       </section>
     </section>
   </main>
-  <script src="script.js?v=10"></script>
+
+  <script src="states/none.js?v=1"></script>
+  <script src="states/group-a.js?v=1"></script>
+  <script src="states/group-b1.js?v=1"></script>
+  <script src="states/group-b2.js?v=1"></script>
+  <script>
+    const selected = { hat: false, backpack: false, shoes: false };
+    const panda = document.getElementById('panda');
+    const message = document.getElementById('message');
+    const buttons = [...document.querySelectorAll('.item')];
+
+    Object.values(window.PANDA_STATES || {}).forEach((src) => {
+      const image = new Image();
+      image.src = src;
+    });
+
+    function stateKey() {
+      const active = Object.keys(selected).filter((item) => selected[item]);
+      if (active.length === 0) return 'none';
+      if (active.length === 3) return 'all';
+      return active.join('-');
+    }
+
+    function statusText() {
+      const active = Object.keys(selected).filter((item) => selected[item]);
+      if (active.length === 0) return 'The panda is ready to dress up!';
+      if (active.length === 1) return `The panda is wearing the ${active[0]}!`;
+      if (active.length === 2) return `The panda is wearing the ${active[0]} and ${active[1]}!`;
+      return 'The panda is wearing the hat, backpack, and shoes!';
+    }
+
+    function render(firstLoad = false) {
+      buttons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(selected[button.dataset.item]));
+      });
+
+      const update = () => {
+        const key = stateKey();
+        panda.src = window.PANDA_STATES[key];
+        panda.alt = statusText();
+        message.textContent = statusText();
+        panda.classList.remove('changing');
+      };
+
+      if (firstLoad) update();
+      else {
+        panda.classList.add('changing');
+        window.setTimeout(update, 110);
+      }
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        selected[button.dataset.item] = !selected[button.dataset.item];
+        render();
+      });
+    });
+
+    document.getElementById('reset').addEventListener('click', () => {
+      Object.keys(selected).forEach((item) => { selected[item] = false; });
+      render();
+    });
+
+    document.getElementById('surprise').addEventListener('click', () => {
+      Object.keys(selected).forEach((item) => { selected[item] = Math.random() < .5; });
+      if (!Object.values(selected).some(Boolean)) {
+        const choices = Object.keys(selected);
+        selected[choices[Math.floor(Math.random() * choices.length)]] = true;
+      }
+      render();
+    });
+
+    render(true);
+  </script>
 </body>
 </html>
