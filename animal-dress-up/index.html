@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Animal Dress-Up</title>
-  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="stylesheet" href="style.css?v=10" />
 </head>
 <body>
   <a class="home-link" href="../">← Home</a>
@@ -24,38 +24,66 @@
             <button class="choice" data-animal="panda" type="button">Panda</button>
           </div>
         </div>
-        <div class="control-group"><h2>Hat</h2><div class="choice-row"><button class="item active" data-category="hat" data-item="none" type="button">None</button><button class="item" data-category="hat" data-item="sun" type="button">Sun hat</button><button class="item" data-category="hat" data-item="party" type="button">Party hat</button></div></div>
-        <div class="control-group"><h2>Top</h2><div class="choice-row"><button class="item active" data-category="top" data-item="none" type="button">None</button><button class="item" data-category="top" data-item="shirt" type="button">T-shirt</button><button class="item" data-category="top" data-item="scarf" type="button">Scarf</button></div></div>
-        <div class="control-group"><h2>Bottom</h2><div class="choice-row"><button class="item active" data-category="bottom" data-item="none" type="button">None</button><button class="item" data-category="bottom" data-item="shorts" type="button">Shorts</button></div></div>
-        <div class="control-group"><h2>Accessories</h2><div class="choice-row"><button class="item active" data-category="accessory" data-item="none" type="button">None</button><button class="item" data-category="accessory" data-item="purse" type="button">Purse</button></div></div>
-        <div class="control-group"><h2>Shoes</h2><div class="choice-row"><button class="item active" data-category="shoes" data-item="none" type="button">None</button><button class="item" data-category="shoes" data-item="sneakers" type="button">Sneakers</button></div></div>
-        <div class="actions"><button id="randomButton" type="button">Surprise me</button><button id="resetButton" type="button">Reset outfit</button></div>
+
+        <div class="control-group"><h2>Hat</h2><div class="choice-row">
+          <button class="item active" data-category="hat" data-item="none" type="button">None</button>
+          <button class="item" data-category="hat" data-item="sun" type="button">Sun hat</button>
+          <button class="item" data-category="hat" data-item="party" type="button">Party hat</button>
+        </div></div>
+
+        <div class="control-group"><h2>Top</h2><div class="choice-row">
+          <button class="item active" data-category="top" data-item="none" type="button">None</button>
+          <button class="item" data-category="top" data-item="shirt" type="button">T-shirt</button>
+          <button class="item" data-category="top" data-item="scarf" type="button">Scarf</button>
+        </div></div>
+
+        <div class="control-group"><h2>Bottom</h2><div class="choice-row">
+          <button class="item active" data-category="bottom" data-item="none" type="button">None</button>
+          <button class="item" data-category="bottom" data-item="shorts" type="button">Shorts</button>
+        </div></div>
+
+        <div class="control-group"><h2>Accessories</h2><div class="choice-row">
+          <button class="item active" data-category="accessory" data-item="none" type="button">None</button>
+          <button class="item" data-category="accessory" data-item="purse" type="button">Purse</button>
+        </div></div>
+
+        <div class="control-group"><h2>Shoes</h2><div class="choice-row">
+          <button class="item active" data-category="shoes" data-item="none" type="button">None</button>
+          <button class="item" data-category="shoes" data-item="sneakers" type="button">Sneakers</button>
+        </div></div>
+
+        <div class="actions">
+          <button id="randomButton" type="button">Surprise me</button>
+          <button id="resetButton" type="button">Reset outfit</button>
+        </div>
       </aside>
 
       <section class="stage-panel">
         <div class="stage-shell">
           <div id="dressUpStage" class="dress-up-stage animal-capybara" aria-live="polite">
             <img id="animalBase" alt="Dress-up animal" />
-            <svg class="wearable-layer" data-animal="capybara" data-category="hat" data-item="sun" viewBox="0 0 520 520" aria-hidden="true"><ellipse cx="260" cy="88" rx="122" ry="22" fill="#ffdf7a" stroke="#6c4d1e" stroke-width="8"/><path d="M185 87 Q197 25 260 25 Q323 25 335 87Z" fill="#ffe9a6" stroke="#6c4d1e" stroke-width="8"/><path d="M198 56 Q260 79 322 56" fill="none" stroke="#ef7f91" stroke-width="15" stroke-linecap="round"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="hat" data-item="party" viewBox="0 0 520 520" aria-hidden="true"><path d="M212 102 L260 22 L308 102Z" fill="#9a82e8" stroke="#4b3d78" stroke-width="8"/><circle cx="260" cy="18" r="14" fill="#ffd767"/><circle cx="238" cy="58" r="8" fill="#ff96a6"/><circle cx="280" cy="72" r="8" fill="#74cbc5"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="top" data-item="shirt" viewBox="0 0 520 520" aria-hidden="true"><path d="M150 222 Q176 194 213 192 L260 216 L307 192 Q344 194 370 222 L346 362 Q261 395 174 362Z" fill="#7fc3ed" stroke="#315973" stroke-width="8"/><path d="M228 203 Q260 235 292 203" fill="none" stroke="#315973" stroke-width="8" stroke-linecap="round"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="top" data-item="scarf" viewBox="0 0 520 520" aria-hidden="true"><path d="M155 214 Q260 264 365 214 L350 262 Q260 294 170 262Z" fill="#ef7f91" stroke="#7f3946" stroke-width="8"/><path d="M300 247 L340 382 L289 367 L262 268Z" fill="#ef7f91" stroke="#7f3946" stroke-width="8"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="bottom" data-item="shorts" viewBox="0 0 520 520" aria-hidden="true"><path d="M166 335 Q260 367 354 335 L344 430 L286 430 L260 384 L234 430 L176 430Z" fill="#6f88cf" stroke="#34467d" stroke-width="8"/><circle cx="260" cy="357" r="6" fill="#ffffff"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="accessory" data-item="purse" viewBox="0 0 520 520" aria-hidden="true"><path d="M312 213 Q376 242 384 360" fill="none" stroke="#7b4c86" stroke-width="12" stroke-linecap="round"/><rect x="319" y="336" width="92" height="82" rx="18" fill="#c78bd4" stroke="#6b3c77" stroke-width="8"/><circle cx="365" cy="372" r="7" fill="#ffe17a"/></svg>
-            <svg class="wearable-layer" data-animal="capybara" data-category="shoes" data-item="sneakers" viewBox="0 0 520 520" aria-hidden="true"><path d="M163 434 Q198 422 235 445 L235 470 L150 470 Q133 453 163 434Z" fill="#f8f9ff" stroke="#505172" stroke-width="8"/><path d="M357 434 Q322 422 285 445 L285 470 L370 470 Q387 453 357 434Z" fill="#f8f9ff" stroke="#505172" stroke-width="8"/><path d="M173 446 L226 455 M347 446 L294 455" stroke="#79bde8" stroke-width="6" stroke-linecap="round"/></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="hat" data-item="sun" viewBox="0 0 520 520" aria-hidden="true"><ellipse cx="260" cy="80" rx="110" ry="20" fill="#ffdf7a" stroke="#6c4d1e" stroke-width="8"/><path d="M196 80 Q206 24 260 24 Q314 24 324 80Z" fill="#ffe9a6" stroke="#6c4d1e" stroke-width="8"/><path d="M207 52 Q260 72 313 52" fill="none" stroke="#ef7f91" stroke-width="14" stroke-linecap="round"/></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="hat" data-item="party" viewBox="0 0 520 520" aria-hidden="true"><path d="M220 96 L260 20 L300 96Z" fill="#9a82e8" stroke="#4b3d78" stroke-width="8"/><circle cx="260" cy="16" r="13" fill="#ffd767"/><circle cx="242" cy="56" r="8" fill="#ff96a6"/><circle cx="278" cy="68" r="8" fill="#74cbc5"/></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="top" data-item="shirt" viewBox="0 0 520 520" aria-hidden="true"><path d="M170 224 Q192 200 223 196 L260 217 L297 196 Q328 200 350 224 L334 350 Q260 375 186 350Z" fill="#7fc3ed" stroke="#315973" stroke-width="8"/><path d="M235 208 Q260 234 285 208" fill="none" stroke="#315973" stroke-width="8" stroke-linecap="round"/></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="top" data-item="scarf" viewBox="0 0 520 520" aria-hidden="true"><path d="M172 220 Q260 266 348 220 L336 262 Q260 292 184 262Z" fill="#ef7f91" stroke="#7f3946" stroke-width="8"/><path d="M294 249 L331 369 L286 356 L263 273Z" fill="#ef7f91" stroke="#7f3946" stroke-width="8"/></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="bottom" data-item="shorts" viewBox="0 0 520 520" aria-hidden="true"><path d="M183 333 Q260 355 337 333 L330 420 L283 420 L260 383 L237 420 L190 420Z" fill="#6f88cf" stroke="#34467d" stroke-width="8"/><circle cx="260" cy="350" r="6" fill="#ffffff"/></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="accessory" data-item="purse" viewBox="0 0 520 520" aria-hidden="true"><path d="M306 219 Q360 250 367 353" fill="none" stroke="#7b4c86" stroke-width="12" stroke-linecap="round"/><rect x="306" y="332" width="92" height="82" rx="18" fill="#c78bd4" stroke="#6b3c77" stroke-width="8"/><circle cx="352" cy="367" r="7" fill="#ffe17a"/></svg>
-            <svg class="wearable-layer" data-animal="panda" data-category="shoes" data-item="sneakers" viewBox="0 0 520 520" aria-hidden="true"><path d="M183 428 Q215 419 247 440 L247 466 L171 466 Q155 450 183 428Z" fill="#f8f9ff" stroke="#505172" stroke-width="8"/><path d="M337 428 Q305 419 273 440 L273 466 L349 466 Q365 450 337 428Z" fill="#f8f9ff" stroke="#505172" stroke-width="8"/><path d="M191 440 L238 448 M329 440 L282 448" stroke="#79bde8" stroke-width="6" stroke-linecap="round"/></svg>
+
+            <svg class="wearable-layer" data-animal="capybara" data-category="hat" data-item="sun" viewBox="0 0 520 520"><ellipse cx="260" cy="88" rx="122" ry="22" fill="#ffdf7a" stroke="#6c4d1e" stroke-width="8"/><path d="M185 87 Q197 25 260 25 Q323 25 335 87Z" fill="#ffe9a6" stroke="#6c4d1e" stroke-width="8"/></svg>
+            <svg class="wearable-layer" data-animal="capybara" data-category="hat" data-item="party" viewBox="0 0 520 520"><path d="M212 102 L260 22 L308 102Z" fill="#9a82e8" stroke="#4b3d78" stroke-width="8"/><circle cx="260" cy="18" r="14" fill="#ffd767"/></svg>
+            <svg class="wearable-layer" data-animal="capybara" data-category="top" data-item="shirt" viewBox="0 0 520 520"><path d="M150 222 Q176 194 213 192 L260 216 L307 192 Q344 194 370 222 L346 362 Q261 395 174 362Z" fill="#7fc3ed" stroke="#315973" stroke-width="8"/></svg>
+            <svg class="wearable-layer" data-animal="capybara" data-category="top" data-item="scarf" viewBox="0 0 520 520"><path d="M155 214 Q260 264 365 214 L350 262 Q260 294 170 262Z" fill="#ef7f91" stroke="#7f3946" stroke-width="8"/></svg>
+            <svg class="wearable-layer" data-animal="capybara" data-category="bottom" data-item="shorts" viewBox="0 0 520 520"><path d="M166 335 Q260 367 354 335 L344 430 L286 430 L260 384 L234 430 L176 430Z" fill="#6f88cf" stroke="#34467d" stroke-width="8"/></svg>
+            <svg class="wearable-layer" data-animal="capybara" data-category="accessory" data-item="purse" viewBox="0 0 520 520"><path d="M312 213 Q376 242 384 360" fill="none" stroke="#7b4c86" stroke-width="12"/><rect x="319" y="336" width="92" height="82" rx="18" fill="#c78bd4" stroke="#6b3c77" stroke-width="8"/></svg>
+            <svg class="wearable-layer" data-animal="capybara" data-category="shoes" data-item="sneakers" viewBox="0 0 520 520"><path d="M163 434 Q198 422 235 445 L235 470 L150 470 Q133 453 163 434Z" fill="#f8f9ff" stroke="#505172" stroke-width="8"/><path d="M357 434 Q322 422 285 445 L285 470 L370 470 Q387 453 357 434Z" fill="#f8f9ff" stroke="#505172" stroke-width="8"/></svg>
+
+            <svg class="wearable-layer" data-animal="panda" data-category="hat" data-item="sun" viewBox="0 0 520 520"></svg>
+            <svg class="wearable-layer" data-animal="panda" data-category="hat" data-item="party" viewBox="0 0 520 520"></svg>
+            <svg class="wearable-layer" data-animal="panda" data-category="top" data-item="shirt" viewBox="0 0 520 520"></svg>
+            <svg class="wearable-layer" data-animal="panda" data-category="top" data-item="scarf" viewBox="0 0 520 520"></svg>
+            <svg class="wearable-layer" data-animal="panda" data-category="bottom" data-item="shorts" viewBox="0 0 520 520"></svg>
+            <svg class="wearable-layer" data-animal="panda" data-category="accessory" data-item="purse" viewBox="0 0 520 520"></svg>
+            <svg class="wearable-layer" data-animal="panda" data-category="shoes" data-item="sneakers" viewBox="0 0 520 520"></svg>
           </div>
         </div>
         <p id="outfitMessage">Your capybara is ready to dress up!</p>
       </section>
     </section>
   </main>
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=10"></script>
 </body>
 </html>
